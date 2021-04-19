@@ -21,6 +21,11 @@
             <version>1.1</version>
         </dependency>
         <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -47,6 +52,44 @@
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>jar</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                    <mainClass>com.veetech.unitconversion.CommandLine</mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>cli</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <!-- filters>
+                                <filter>src/assembly/filter.properties</filter>
+                            </filters -->
+                            <descriptors>
+                                <descriptor>src/assembly/command-line.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -103,7 +146,7 @@
             <resource>
                 <directory>config</directory>
                 <includes>
-                    <include>classes.properties</include>
+                    <include>*.*</include>
                 </includes>
             </resource>
         </resources>

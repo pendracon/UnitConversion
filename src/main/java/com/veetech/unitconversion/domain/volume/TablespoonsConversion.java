@@ -10,6 +10,7 @@
  */
 package com.veetech.unitconversion.domain.volume;
 
+import com.veetech.unitconversion.ConversionUtil;
 import com.veetech.unitconversion.domain.ConversionImpl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -46,7 +47,7 @@ public class TablespoonsConversion
 	@Override
 	protected BigDecimal toCubicFeet( BigDecimal units )
 	{
-		return toSingleScale( units.divide(BigDecimal.valueOf(1915.013), 4, RoundingMode.HALF_UP) );
+		return ConversionUtil.toSingleScale( units.divide(BigDecimal.valueOf(1915.013), 4, RoundingMode.HALF_UP) );
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class TablespoonsConversion
 	@Override
 	protected BigDecimal toCubicInches( BigDecimal units )
 	{
-		return toSingleScale( units.divide(BigDecimal.valueOf(1.1082), 4, RoundingMode.HALF_UP) );
+		return ConversionUtil.toSingleScale( units.divide(BigDecimal.valueOf(1.1082), 4, RoundingMode.HALF_UP) );
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class TablespoonsConversion
 	@Override
 	protected BigDecimal toCups( BigDecimal units )
 	{
-		return toSingleScale( units.divide(BigDecimal.valueOf(16), 4, RoundingMode.HALF_UP) );
+		return ConversionUtil.toSingleScale( units.divide(BigDecimal.valueOf(16), 4, RoundingMode.HALF_UP) );
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class TablespoonsConversion
 	@Override
 	protected BigDecimal toGallons( BigDecimal units )
 	{
-		return toSingleScale( units.divide(BigDecimal.valueOf(297.8937), 4, RoundingMode.HALF_UP) );
+		return ConversionUtil.toSingleScale( units.divide(BigDecimal.valueOf(297.8937), 4, RoundingMode.HALF_UP) );
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class TablespoonsConversion
 	@Override
 	protected BigDecimal toLiters( BigDecimal units )
 	{
-		return toSingleScale( units.divide(BigDecimal.valueOf(67.628), 4, RoundingMode.HALF_UP) );
+		return ConversionUtil.toSingleScale( units.divide(BigDecimal.valueOf(67.628), 4, RoundingMode.HALF_UP) );
 	}
 
 	/**
@@ -106,6 +107,6 @@ public class TablespoonsConversion
 	@Override
 	protected BigDecimal toTablespoons( BigDecimal units )
 	{
-		return toSingleScale( units );
+		return ConversionUtil.toSingleScale( units );
 	}
 }

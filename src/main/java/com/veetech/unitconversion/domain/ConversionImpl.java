@@ -28,34 +28,6 @@ public abstract class ConversionImpl
 		implements Conversion
 {
 	/**
-	 * Returns the given units formatted to single scale precision.
-	 * @param units The value to format.
-	 * @return The units in tenths.
-	 */
-	public static BigDecimal toSingleScale( BigDecimal units )
-	{
-		RoundingMode rounding = (units.compareTo(BigDecimal.ZERO) < 0 ? RoundingMode.HALF_DOWN : RoundingMode.HALF_UP);
-		return units.setScale( 1, rounding );
-	}
-
-	/*
-	 * Converts the given value from Celsius to Fahrenheit with no rounding.
-	 */
-	public static BigDecimal fromCelsiusToFahrenheit( BigDecimal units )
-	{
-		return units.multiply( BigDecimal.valueOf(9/5f) ).add( BigDecimal.valueOf(32) );
-	}
-	
-	/*
-	 * Converts the given value from Fahrenheit to Celsius with no rounding.
-	 */
-	public static BigDecimal fromFahrenheitToCelsius( BigDecimal units )
-	{
-		return units.subtract( BigDecimal.valueOf(32) ).multiply( BigDecimal.valueOf(5/9f) );
-	}
-
-	
-	/**
 	 * Creates a new instance of ConversionImpl for specified source temperature
 	 * type.
 	 * 

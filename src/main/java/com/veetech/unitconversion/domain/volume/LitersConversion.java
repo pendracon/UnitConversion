@@ -10,6 +10,7 @@
  */
 package com.veetech.unitconversion.domain.volume;
 
+import com.veetech.unitconversion.ConversionUtil;
 import com.veetech.unitconversion.domain.ConversionImpl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -46,7 +47,7 @@ public class LitersConversion
 	@Override
 	protected BigDecimal toCubicFeet( BigDecimal units )
 	{
-		return toSingleScale( units.divide(BigDecimal.valueOf(28.3169), 4, RoundingMode.HALF_UP) );
+		return ConversionUtil.toSingleScale( units.divide(BigDecimal.valueOf(28.3169), 4, RoundingMode.HALF_UP) );
 	}
 
 	/**
@@ -58,7 +59,7 @@ public class LitersConversion
 	@Override
 	protected BigDecimal toCubicInches( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(61.0237)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(61.0237)) );
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class LitersConversion
 	@Override
 	protected BigDecimal toCups( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(4.2268)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(4.2268)) );
 	}
 
 	/**
@@ -82,7 +83,7 @@ public class LitersConversion
 	@Override
 	protected BigDecimal toGallons( BigDecimal units )
 	{
-		return toSingleScale( units.divide(BigDecimal.valueOf(4.4049), 4, RoundingMode.HALF_UP) );
+		return ConversionUtil.toSingleScale( units.divide(BigDecimal.valueOf(4.4049), 4, RoundingMode.HALF_UP) );
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class LitersConversion
 	@Override
 	protected BigDecimal toLiters( BigDecimal units )
 	{
-		return toSingleScale( units );
+		return ConversionUtil.toSingleScale( units );
 	}
 
 	/**
@@ -106,6 +107,6 @@ public class LitersConversion
 	@Override
 	protected BigDecimal toTablespoons( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(67.628)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(67.628)) );
 	}
 }

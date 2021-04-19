@@ -10,6 +10,7 @@
  */
 package com.veetech.unitconversion.domain.volume;
 
+import com.veetech.unitconversion.ConversionUtil;
 import com.veetech.unitconversion.domain.ConversionImpl;
 import java.math.BigDecimal;
 
@@ -44,7 +45,7 @@ public class CubicFeetConversion
 	@Override
 	protected BigDecimal toCubicFeet( BigDecimal units )
 	{
-		return toSingleScale( units );
+		return ConversionUtil.toSingleScale( units );
 	}
 
 	/**
@@ -56,7 +57,7 @@ public class CubicFeetConversion
 	@Override
 	protected BigDecimal toCubicInches( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(1728)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(1728)) );
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class CubicFeetConversion
 	@Override
 	protected BigDecimal toCups( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(119.6883)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(119.6883)) );
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class CubicFeetConversion
 	@Override
 	protected BigDecimal toGallons( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(6.4285)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(6.4285)) );
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class CubicFeetConversion
 	@Override
 	protected BigDecimal toLiters( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(28.3169)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(28.3169)) );
 	}
 
 	/**
@@ -104,6 +105,6 @@ public class CubicFeetConversion
 	@Override
 	protected BigDecimal toTablespoons( BigDecimal units )
 	{
-		return toSingleScale( units.multiply(BigDecimal.valueOf(1915.013)) );
+		return ConversionUtil.toSingleScale( units.multiply(BigDecimal.valueOf(1915.013)) );
 	}
 }

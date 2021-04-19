@@ -18,25 +18,51 @@ import com.veetech.unitconversion.domain.ConversionType;
  * @author a.cook@veetechis.com
  */
 public enum VolumeType implements ConversionType {
-	CUBIC_FEET( "cubicFeet" ),
-	CUBIC_INCHES( "cubicInches" ),
-	CUPS( "cups" ),
-	GALLONS( "gallons" ),
-	LITERS( "liters" ),
-	TABLESPOONS( "tablespoons" );
+	CUBIC_FEET( "cubic feet", "CF", "cubicFeet" ),
+	CUBIC_INCHES( "cubic inches", "CI", "cubicInches" ),
+	CUPS( "cups", "cups", "cups" ),
+	GALLONS( "gallons", "gal", "gallons" ),
+	LITERS( "liters", "l", "liters" ),
+	TABLESPOONS( "tablespoons", "tbl", "tablespoons" );
 	
 	@Override
+	/**
+	 * Returns false.
+	 */
 	public boolean isTemperatureType() { return false; }
 	
 	@Override
+	/**
+	 * Returns true.
+	 */
 	public boolean isVolumeType() { return true; }
 	
+	/**
+	 * Returns a string representation of the type suitable for printing.
+	 */
 	@Override
-	public String toString() { return description; }
+	public String getPrintableName() { return printName; }
 
-	private VolumeType( String description ) {
-		this.description = description;
+	/**
+	 * Returns the type's symbol value.
+	 */
+	@Override
+	public String getSymbol() { return symbol; }
+
+	/**
+	 * Returns a string representation of the type suitable for creating
+	 * converter instances with ObjectFactory.
+	 */
+	@Override
+	public String toString() { return objectKey; }
+
+	private VolumeType( String printName, String symbol, String objectKey ) {
+		this.printName = printName;
+		this.symbol = symbol;
+		this.objectKey = objectKey;
 	}
 	
-	private final String description;
+	private final String printName;
+	private final String symbol;
+	private final String objectKey;
 }

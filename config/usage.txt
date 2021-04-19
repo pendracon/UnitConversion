@@ -1,0 +1,49 @@
+Unit Conversion Command Line usage:
+    --convertFrom=<temperature|volume type>
+        Give the units type to convert.
+
+    --convertTo=<temperature|volume type>
+        Give the units type to output.
+
+        * Valid type values include -
+            Temperature types: celsius, fahrenheit, kelvin, rankine
+                 Volume types: cubic-feet, cubic-inches, cups, gallons,
+                               liters, tablespoons
+
+    --units=<value>
+        Give the value to convert.
+
+    [--validate=<value>]
+        Give an optional value to validate against the converted result.
+
+    --help
+        Display this usage text.
+
+Resulting values are displayed with rounding in tenths. If a validation value
+is provided then the result of the validation is displayed as 'correct' or
+'incorrect'. Invalid inputs are returned with an error message.
+
+Examples:
+[convert.sh] --convertFrom=celsius --convertTo=fahrenheit --units=100
+Unit Conversion 1.0:
+  Result: 100.0/C = 212.0/F
+
+[convert.sh] --convertFrom=celsius --convertTo=fahrenheit --units=100 --validate=212
+Unit Conversion 1.0:
+  Result: 100.0/C = 212.0/F, Validate 212.0 = Correct
+
+[convert.sh] --convertTo=gallons --units=100
+Unit Conversion 1.0:
+  Error: From conversion type not provided.
+
+[convert.sh] --convertFrom=celsius --convertTo=gallons --units=abc
+Unit Conversion 1.0:
+  Invalid: Can not convert or validate non-numeric value 'abc'.
+
+[convert.sh] --convertFrom=celsius --convertTo=gallons --units=100
+Unit Conversion 1.0:
+  Invalid: Can not convert different unit types 'Celsius' --> 'gallons'.
+
+[convert.sh] --convertFrom=dog --convertTo=gallons --units=100
+Unit Conversion 1.0:
+  Invalid: Can not convert unknown unit type 'dog'.

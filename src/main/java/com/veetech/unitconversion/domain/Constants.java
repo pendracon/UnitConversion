@@ -12,9 +12,15 @@ package com.veetech.unitconversion.domain;
 
 
 /**
- *
+ * Global constants used by Unit Conversion classes.
+ * 
  * @author a.cook@veetechis.com
  */
 public interface Constants {
 	public final static String CLASSES = "classes.properties";
+	public final static String MESSAGES = "messages.properties";
+	
+	public final static String USAGE_FILE = "usage.txt";
+	
+	public final static String DEFAULT_MESSAGE_TEXT = "Message text not found.";
 }

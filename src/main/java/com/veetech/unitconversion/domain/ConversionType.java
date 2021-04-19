@@ -31,4 +31,18 @@ public interface ConversionType
 	 * @return True if this is a volumetric conversion type.
 	 */
 	public boolean isVolumeType();
+	
+	/**
+	 * Returns the proper name of the unit type suitable for printing.
+	 * 
+	 * @return The unit type's printable name.
+	 */
+	public String getPrintableName();
+	
+	/**
+	 * Returns the type's printable symbol.
+	 * 
+	 * @return The unit type symbol.
+	 */
+	public String getSymbol();
 }

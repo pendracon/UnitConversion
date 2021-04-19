@@ -10,6 +10,7 @@
  */
 package com.veetech.unitconversion.domain.temperature;
 
+import com.veetech.unitconversion.ConversionUtil;
 import com.veetech.unitconversion.domain.ConversionImpl;
 import java.math.BigDecimal;
 
@@ -43,7 +44,7 @@ public class CelsiusConversion
 	@Override
 	protected BigDecimal toCelsius( BigDecimal units )
 	{
-		return toSingleScale( units );
+		return ConversionUtil.toSingleScale( units );
 	}
 	
 	/**
@@ -56,7 +57,7 @@ public class CelsiusConversion
 	@Override
 	protected BigDecimal toFahrenheit( BigDecimal units )
 	{
-		return toSingleScale( fromCelsiusToFahrenheit(units) );
+		return ConversionUtil.toSingleScale( ConversionUtil.fromCelsiusToFahrenheit(units) );
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class CelsiusConversion
 	@Override
 	protected BigDecimal toKelvin( BigDecimal units )
 	{
-		return toSingleScale( units.add(BigDecimal.valueOf(273.15)) );
+		return ConversionUtil.toSingleScale( units.add(BigDecimal.valueOf(273.15)) );
 	}
 
 	/**
@@ -82,6 +83,7 @@ public class CelsiusConversion
 	@Override
 	protected BigDecimal toRankine( BigDecimal units )
 	{
-		return toSingleScale( fromCelsiusToFahrenheit(units).add(BigDecimal.valueOf(459.67)) );
+		return ConversionUtil.toSingleScale(
+				ConversionUtil.fromCelsiusToFahrenheit(units).add(BigDecimal.valueOf(459.67)) );
 	}
 }

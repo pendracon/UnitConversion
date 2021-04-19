@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2021 a.cook@veetechis.com.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+
+Contributors:
+   a.cook - initial API and implementation and/or initial documentation
+-->
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd"
+    >
+    <id>cli</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <baseDirectory>UnitConversionCLI</baseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}/dist</directory>
+            <includes>
+                <include>*.bat</include>
+                <include>*.sh</include>
+            </includes>
+            <outputDirectory></outputDirectory>
+            <!-- filtered>true</filtered -->
+        </fileSet>
+        <fileSet>
+            <directory>${basedir}/dist/config</directory>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+            <outputDirectory>/config</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.directory}</directory>
+            <includes>
+                <include>*-jar-with-dependencies.jar</include>
+            </includes>
+            <outputDirectory>/lib</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

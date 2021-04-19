@@ -18,10 +18,10 @@ import com.veetech.unitconversion.domain.ConversionType;
  * @author a.cook@veetechis.com
  */
 public enum TemperatureType implements ConversionType {
-	CELSIUS( "celsius" ),
-	FAHRENHEIT( "fahrenheit" ),
-	KELVIN( "kelvin" ),
-	RANKINE( "rankine" );
+	CELSIUS( "Celsius", "C" ),
+	FAHRENHEIT( "Fahrenheit", "F" ),
+	KELVIN( "Kelvin", "K" ),
+	RANKINE( "Rankine", "R" );
 	
 	/**
 	 * Returns true;
@@ -36,15 +36,29 @@ public enum TemperatureType implements ConversionType {
 	public boolean isVolumeType() { return false; }
 	
 	/**
-	 * Returns a string representation of the type suitable for creating
-	 * converter instances with ObjectFactory;
+	 * Returns a string representation of the type suitable for printing.
 	 */
 	@Override
-	public String toString() { return description; }
+	public String getPrintableName() { return printName; }
 
-	private TemperatureType( String description ) {
-		this.description = description;
+	/**
+	 * Returns the type's symbol value.
+	 */
+	@Override
+	public String getSymbol() { return symbol; }
+
+	/**
+	 * Returns a string representation of the type suitable for creating
+	 * converter instances with ObjectFactory.
+	 */
+	@Override
+	public String toString() { return printName.toLowerCase(); }
+
+	private TemperatureType( String printName, String symbol ) {
+		this.printName = printName;
+		this.symbol = symbol;
 	}
 	
-	private final String description;
+	private final String printName;
+	private final String symbol;
 }

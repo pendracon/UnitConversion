@@ -26,7 +26,7 @@ Contributors:
                 <include>*.sh</include>
             </includes>
             <outputDirectory></outputDirectory>
-            <!-- filtered>true</filtered -->
+            <filtered>true</filtered>
         </fileSet>
         <fileSet>
             <directory>${basedir}/dist/config</directory>

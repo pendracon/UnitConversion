@@ -19,6 +19,7 @@ import com.veetech.unitconversion.factory.ObjectFactory;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Map;
 import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -137,6 +138,29 @@ public class ConversionUtil
 		return message;
 	}
 	
+	/**
+	 * Performs a simple text-only token replacement.  Returns the given
+	 * template parameter with token values defined in the tokens parameter.
+	 * 
+	 * @param template The template with tokens to replace.
+	 * @param tokens The token replacement values.
+	 * @return The token-substituted template.
+	 */
+	public static String textFormat( String template, Map<String,String> tokens )
+	{
+		String value = null;
+		String text = template;
+		
+		for (String token : tokens.keySet()) {
+			value = tokens.get( token );
+			if( token != null && value != null ) {
+				text = text.replaceAll( token, value );
+			}
+		}
+		
+		return text;
+	}
+
 	
 	private final static Log log = LogFactory.getLog( CommandLine.class );
 	

@@ -47,16 +47,16 @@ public class CommandLine
 					showUsage = true;
 					break;
 				}
-				if (arg[0].equalsIgnoreCase("--convertFrom")) {
+				if (arg[0].equalsIgnoreCase(Constants.FROM_TYPE_ARG)) {
 					fromType = (arg.length == 2 ? arg[1] : null);
 				}
-				if (arg[0].equalsIgnoreCase("--convertTo")) {
+				if (arg[0].equalsIgnoreCase(Constants.TO_TYPE_ARG)) {
 					toType = (arg.length == 2 ? arg[1] : null);
 				}
-				if (arg[0].equalsIgnoreCase("--units")) {
+				if (arg[0].equalsIgnoreCase(Constants.UNIT_VALUE_ARG)) {
 					units = (arg.length == 2 ? arg[1] : null);
 				}
-				if (arg[0].equalsIgnoreCase("--validate")) {
+				if (arg[0].equalsIgnoreCase(Constants.VALIDATE_VALUE_ARG)) {
 					validate = (arg.length == 2 ? arg[1] : null);
 				}
 			}
@@ -70,11 +70,11 @@ public class CommandLine
 		try {
 			CommandLine main = new CommandLine( fromType, toType, units, validate );
 			main.execute();
+			main.cleanup();  // good citizen :)
 		}
 		catch (Exception exc) {
 			if (log.isErrorEnabled()) {
-				// TODO
-				log.error( "Error in main...", exc );
+				log.error( "Conversion execution error.", exc );
 			}
 		}
 	}
@@ -103,12 +103,12 @@ public class CommandLine
 	
 	protected CommandLine( String fromType, String toType, String units, String validation )
 	{
-		if (validateParameters(fromType, toType, units)) {
+		if (validateParameters(fromType, toType, units, validation)) {
 			try {
 				this.fromType = ConversionUtil.getConversionType( fromType );
 				this.toType = ConversionUtil.getConversionType( toType );
 				this.units = new BigDecimal( units );
-				if (validation != null) {
+				if (validation != null && !validation.equals(Constants.NO_VALUE)) {
 					this.validation = new BigDecimal( validation );
 				}
 				initialized = true;
@@ -142,7 +142,7 @@ public class CommandLine
 	/**
 	 * Returns the unit type to convert.
 	 * 
-	 * @return The source unit type.
+	 * @return The source unit type, or null.
 	 */
 	protected ConversionType getFromType()
 	{
@@ -152,7 +152,7 @@ public class CommandLine
 	/**
 	 * Returns the unit type to output.
 	 * 
-	 * @return The target unit type.
+	 * @return The target unit type, or null.
 	 */
 	protected ConversionType getToType()
 	{
@@ -162,7 +162,7 @@ public class CommandLine
 	/**
 	 * Returns the unit value to convert.
 	 * 
-	 * @return The value to convert.
+	 * @return The value to convert, or null.
 	 */
 	protected BigDecimal getUnitValue()
 	{
@@ -170,9 +170,19 @@ public class CommandLine
 	}
 	
 	/**
+	 * Returns the converted unit value.
+	 * 
+	 * @return The converted unit value, or null.
+	 */
+	protected BigDecimal getOutputValue()
+	{
+		return output;
+	}
+	
+	/**
 	 * Returns the unit value to validate.
 	 * 
-	 * @return The value to verify.
+	 * @return The value to verify, or null.
 	 */
 	protected BigDecimal getValidationValue()
 	{
@@ -211,7 +221,6 @@ public class CommandLine
 		Conversion converter = ConversionUtil.getConverter( unitType );
 		
 		try {
-			BigDecimal output = null;
 			if (outType.isTemperatureType()) {
 				output = converter.convertTemperature( getUnitValue().toPlainString(), (TemperatureType)outType );
 			}
@@ -220,6 +229,10 @@ public class CommandLine
 			}
 
 			if (output != null) {
+				if (log.isDebugEnabled()) {
+					log.debug( String.format("Value %s converted to %s.", getUnitValue().toPlainString(), output.toPlainString()) );
+				}
+				
 				ArrayList<String> results = new ArrayList();
 				results.add( ConversionUtil.toSingleScale(getUnitValue()).toPlainString() );
 				results.add( unitType.getSymbol() );
@@ -269,18 +282,24 @@ public class CommandLine
 				append( "  " ).
 				append( String.format(ConversionUtil.getMessageText(result.toString()), parms) );
 		System.out.println( message );
+		
+		if (log.isInfoEnabled()) {
+			log.info( message );
+		}
 	}
 
 	/**
 	 * Verifies the required input parameters are entered. Prints an error
-	 * message the console and returns false if any parameter is null.
+	 * message the console and returns false if any parameter other than
+	 * validation is null.
 	 * 
 	 * @param fromType The unit type to convert.
 	 * @param toType The unit to type to output.
 	 * @param units The unit value to convert.
+	 * @param validation The unit value to validate.
 	 * @return False if any parameter is null, otherwise true.
 	 */
-	protected boolean validateParameters( String fromType, String toType, String units )
+	protected boolean validateParameters( String fromType, String toType, String units, String validation )
 	{
 		boolean valid = true;
 		
@@ -297,11 +316,26 @@ public class CommandLine
 			valid = false;
 		}
 		
+		validationUnits = validation;
+		
 		return valid;
 	}
 	
+	/**
+	 * Cleans up the instance.
+	 */
+	protected void cleanup()
+	{
+		fromType = null;
+		toType = null;
+		units = null;
+		output = null;
+		validation = null;
+		validationUnits = null;
+	}
 	
-	protected enum ResultType {
+	
+	protected static enum ResultType {
 		CONVERTED( "convertedResult" ),
 		VALIDATED( "validationGood" ),
 		INCORRECT( "validationBad" ),
@@ -327,7 +361,9 @@ public class CommandLine
 	private ConversionType fromType;
 	private ConversionType toType;
 	private BigDecimal units;
+	private BigDecimal output;
 	private BigDecimal validation;
+	private String validationUnits;  // place holder for children
 	
 	private final static Log log = LogFactory.getLog( CommandLine.class );
 }

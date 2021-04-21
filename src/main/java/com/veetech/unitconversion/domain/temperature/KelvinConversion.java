@@ -27,10 +27,12 @@ public class KelvinConversion
 {
 	/**
 	 * Creates a new instance for converting temperatures measured in Kelvin.
+	 *
+	 * @param type The temperature type.
 	 */
-	public KelvinConversion()
+	public KelvinConversion( KelvinType type )
 	{
-		super( TemperatureType.KELVIN );
+		super( type );
 	}
 
 	

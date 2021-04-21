@@ -27,10 +27,12 @@ public class RankineConversion
 {
 	/**
 	 * Creates a new instance for converting temperatures measured in Rankine.
+	 * 
+	 * @param type The temperature type.
 	 */
-	public RankineConversion()
+	public RankineConversion( RankineType type )
 	{
-		super( TemperatureType.RANKINE );
+		super( type );
 	}
 
 	

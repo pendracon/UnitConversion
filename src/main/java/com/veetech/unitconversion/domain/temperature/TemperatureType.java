@@ -14,51 +14,68 @@ import com.veetech.unitconversion.domain.ConversionType;
 
 
 /**
- *
+ * Base class for convertible temperature unit types.
+ * 
  * @author a.cook@veetechis.com
  */
-public enum TemperatureType implements ConversionType {
-	CELSIUS( "Celsius", "C" ),
-	FAHRENHEIT( "Fahrenheit", "F" ),
-	KELVIN( "Kelvin", "K" ),
-	RANKINE( "Rankine", "R" );
-	
+public abstract class TemperatureType
+		extends ConversionType
+{
 	/**
-	 * Returns true;
+	 * Returns true.
 	 */
 	@Override
-	public boolean isTemperatureType() { return true; }
-	
-	/**
-	 * Returns false;
-	 */
-	@Override
-	public boolean isVolumeType() { return false; }
-	
-	/**
-	 * Returns a string representation of the type suitable for printing.
-	 */
-	@Override
-	public String getPrintableName() { return printName; }
-
-	/**
-	 * Returns the type's symbol value.
-	 */
-	@Override
-	public String getSymbol() { return symbol; }
-
-	/**
-	 * Returns a string representation of the type suitable for creating
-	 * converter instances with ObjectFactory.
-	 */
-	@Override
-	public String toString() { return printName.toLowerCase(); }
-
-	private TemperatureType( String printName, String symbol ) {
-		this.printName = printName;
-		this.symbol = symbol;
+	public boolean isTemperatureType()
+	{
+		return true;
 	}
 	
-	private final String printName;
-	private final String symbol;
+	/**
+	 * Returns false.
+	 */
+	@Override
+	public boolean isVolumeType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a Celsius type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isCelsiusType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a Fahrenheit type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isFahrenheitType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a Kelvin type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isKelvinType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a Rankine type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isRankineType()
+	{
+		return false;
+	}
 }

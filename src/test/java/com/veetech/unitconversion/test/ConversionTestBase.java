@@ -11,4 +11,9 @@ public abstract class ConversionTestBase
 	{
 		return ConversionUtil.getConverter( type );
 	}
+	
+	public ConversionType getConversionType( String type )
+	{
+		return ConversionUtil.getConversionType( type );
+	}
 }

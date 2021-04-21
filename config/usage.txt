@@ -7,7 +7,7 @@ Unit Conversion Command Line usage:
 
         * Valid type values include -
             Temperature types: celsius, fahrenheit, kelvin, rankine
-                 Volume types: cubic-feet, cubic-inches, cups, gallons,
+                 Volume types: cubic_feet, cubic_inches, cups, gallons,
                                liters, tablespoons
 
     --units=<value>

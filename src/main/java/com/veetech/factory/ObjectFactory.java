@@ -8,7 +8,7 @@
  * Contributors:
  *    a.cook - initial API and implementation and/or initial documentation
  */
-package com.veetech.unitconversion.factory;
+package com.veetech.factory;
 
 import com.veetech.unitconversion.domain.Constants;
 
@@ -144,7 +144,7 @@ public class ObjectFactory
 		try {
 			return findConstructor( constructorKey, cls, parms ).newInstance( parms );
 		}
-		catch( IllegalAccessException | IllegalArgumentException | InvocationTargetException exc ) {
+		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exc) {
 			throw new InstantiationException( exc.getMessage() );
 		}
 	}
@@ -174,7 +174,7 @@ public class ObjectFactory
 					ctor = cls.getConstructor( asClassArray(parms) );
 					constructors.put( key, ctor );
 				}
-				catch( NoSuchMethodException exc ) {
+				catch (NoSuchMethodException exc) {
 					throw new ClassNotFoundException( exc.getMessage() );
 				}
 			}
@@ -194,7 +194,7 @@ public class ObjectFactory
 		try {
 			bundle.load( getClass().getClassLoader().getResourceAsStream(Constants.CLASSES) );
 		}
-		catch( IOException exc ) {
+		catch (IOException exc) {
 			if (log.isWarnEnabled() ) {
 				log.warn( String.format("Could not load resource %s.", Constants.CLASSES) );
 			}

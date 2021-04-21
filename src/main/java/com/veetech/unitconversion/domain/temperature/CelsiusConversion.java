@@ -27,13 +27,14 @@ public class CelsiusConversion
 {
 	/**
 	 * Creates a new instance for converting temperatures measured in Celsius.
+	 * 
+	 * @param type The temperature type.
 	 */
-	public CelsiusConversion()
+	public CelsiusConversion( CelsiusType type )
 	{
-		super( TemperatureType.CELSIUS );
+		super( type );
 	}
 
-	
 	/**
 	 * Returns the temperature measured in degrees Celsius rounded to the
 	 * specified precision.

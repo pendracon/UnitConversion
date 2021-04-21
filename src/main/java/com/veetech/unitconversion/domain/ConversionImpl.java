@@ -10,8 +10,8 @@
  */
 package com.veetech.unitconversion.domain;
 
-import com.veetech.unitconversion.domain.volume.VolumeType;
 import com.veetech.unitconversion.domain.temperature.TemperatureType;
+import com.veetech.unitconversion.domain.volume.VolumeType;
 import java.math.BigDecimal;
 
 
@@ -52,18 +52,44 @@ public abstract class ConversionImpl
 	
 	
 	/**
+	 * Converts the given source units value to the specified target type.
+	 * 
+	 * Throws an exception if temperature conversion is not supported, if the
+	 * given units are non-numeric, or if either parameter value is null.
+	 * 
+	 * @param units The source unit type value to convert.
+	 * @param type The target unit type to return.
+	 * @return The converted value.
+	 */
+	@Override
+	public BigDecimal convertUnits( String units, ConversionType type )
+			throws NullPointerException, NumberFormatException, UnsupportedOperationException
+	{
+		if (type.isTemperatureType()) {
+			return convertTemperature( units, (TemperatureType)type );
+		}
+		else if (type.isVolumeType()) {
+			return convertVolume( units, (VolumeType)type );
+		}
+		else {
+			throw new UnsupportedOperationException( String.format("Unknown conversion type: %s.", type) );
+		}
+	}
+
+	
+	/**
 	 * Converts the given source units value to the specified target
 	 * temperature type.
 	 * 
-	 * Throws an exception if temperature conversion is not supported, if the
+	 * Throws an exception if this is not an instance for converting
+	 * temperatures, if the given type is not a known temperature type, if the
 	 * given units are non-numeric, or if either parameter value is null.
 	 * 
 	 * @param units The source temperature value to convert.
 	 * @param type The target temperature type to return.
 	 * @return The converted temperature value.
 	 */
-	@Override
-	public BigDecimal convertTemperature( String units, TemperatureType type )
+	protected BigDecimal convertTemperature( String units, TemperatureType type )
 			throws NullPointerException, NumberFormatException, UnsupportedOperationException
 	{
 		if (sourceTemperatureType == null)
@@ -73,24 +99,23 @@ public abstract class ConversionImpl
 		if (type == null)
 			throw new NullPointerException( "Null target conversion type." );
 
-		BigDecimal sourceUnits = new BigDecimal( units );
 		BigDecimal targetUnits;
-		switch( type ) {
-			case CELSIUS:
-				targetUnits = toCelsius( sourceUnits );
-				break;
-			case FAHRENHEIT:
-				targetUnits = toFahrenheit( sourceUnits );
-				break;
-			case KELVIN:
-				targetUnits = toKelvin( sourceUnits );
-				break;
-			case RANKINE:
-				targetUnits = toRankine( sourceUnits );
-				break;
-			default:
-				throw new UnsupportedOperationException(
-						String.format("Conversion to temperature type %s not supported.", type) );
+		BigDecimal sourceUnits = new BigDecimal( units );
+		if (type.isCelsiusType()) {
+			targetUnits = toCelsius( sourceUnits );
+		}
+		else if (type.isFahrenheitType()) {
+			targetUnits = toFahrenheit( sourceUnits );
+		}
+		else if (type.isKelvinType()) {
+			targetUnits = toKelvin( sourceUnits );
+		}
+		else if (type.isRankineType()) {
+			targetUnits = toRankine( sourceUnits );
+		}
+		else {
+			throw new UnsupportedOperationException(
+				String.format("Conversion to temperature type %s not supported.", type) );
 		}
 		
 		return targetUnits;
@@ -107,8 +132,7 @@ public abstract class ConversionImpl
 	 * @param type The target volume type to return.
 	 * @return The converted volumetric value.
 	 */
-	@Override
-	public BigDecimal convertVolume( String units, VolumeType type )
+	protected BigDecimal convertVolume( String units, VolumeType type )
 			throws NullPointerException, NumberFormatException, UnsupportedOperationException
 	{
 		if (sourceVolumeType == null)
@@ -118,30 +142,29 @@ public abstract class ConversionImpl
 		if (type == null)
 			throw new NullPointerException( "Null target conversion value." );
 		
-		BigDecimal sourceUnits = new BigDecimal( units );
 		BigDecimal targetUnits;
-		switch( type ) {
-			case CUBIC_FEET:
-				targetUnits = toCubicFeet( sourceUnits );
-				break;
-			case CUBIC_INCHES:
-				targetUnits = toCubicInches( sourceUnits );
-				break;
-			case CUPS:
-				targetUnits = toCups( sourceUnits );
-				break;
-			case GALLONS:
-				targetUnits = toGallons( sourceUnits );
-				break;
-			case LITERS:
-				targetUnits = toLiters( sourceUnits );
-				break;
-			case TABLESPOONS:
-				targetUnits = toTablespoons( sourceUnits );
-				break;
-			default:
-				throw new UnsupportedOperationException(
-						String.format("Conversion to temperature type %s not supported.", type) );
+		BigDecimal sourceUnits = new BigDecimal( units );
+		if (type.isCubicFeetType()) {
+			targetUnits = toCubicFeet( sourceUnits );
+		}
+		else if (type.isCubicInchesType()) {
+			targetUnits = toCubicInches( sourceUnits );
+		}
+		else if (type.isCupsType()) {
+			targetUnits = toCups( sourceUnits );
+		}
+		else if (type.isGallonsType()) {
+			targetUnits = toGallons( sourceUnits );
+		}
+		else if (type.isLitersType()) {
+			targetUnits = toLiters( sourceUnits );
+		}
+		else if (type.isTablespoonsType()) {
+			targetUnits = toTablespoons( sourceUnits );
+		}
+		else {
+			throw new UnsupportedOperationException(
+				String.format("Conversion to volume type %s not supported.", type) );
 		}
 		
 		return targetUnits;

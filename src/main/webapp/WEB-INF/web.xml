@@ -2,13 +2,17 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <display-name>Unit Conversion Service</display-name>
 
+    <welcome-file-list>
+        <welcome-file>/index.html</welcome-file>
+    </welcome-file-list>
+
     <!-- Jersey Servlet configurations -->
     <servlet>
         <servlet-name>Jersey REST Service</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>debug</param-name>
-            <param-value>4</param-value>
+            <param-value>0</param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
@@ -18,7 +22,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Jersey REST Service</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/service/*</url-pattern>
     </servlet-mapping>
     <!-- Jersey Servlet configurations -->
 

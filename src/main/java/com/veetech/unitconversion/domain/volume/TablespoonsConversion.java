@@ -31,10 +31,12 @@ public class TablespoonsConversion
 {
 	/**
 	 * Creates a new instance for converting volumes measured in tablespoons.
+	 * 
+	 * @param type The volumetric type.
 	 */
-	public TablespoonsConversion()
+	public TablespoonsConversion( TablespoonsType type )
 	{
-		super( VolumeType.TABLESPOONS );
+		super( type );
 	}
 
 	

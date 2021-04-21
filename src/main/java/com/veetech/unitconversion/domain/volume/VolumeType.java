@@ -14,55 +14,104 @@ import com.veetech.unitconversion.domain.ConversionType;
 
 
 /**
- *
+ * Base class for convertible volumetric unit types.
+ * 
  * @author a.cook@veetechis.com
  */
-public enum VolumeType implements ConversionType {
-	CUBIC_FEET( "cubic feet", "CF", "cubicFeet" ),
-	CUBIC_INCHES( "cubic inches", "CI", "cubicInches" ),
-	CUPS( "cups", "cups", "cups" ),
-	GALLONS( "gallons", "gal", "gallons" ),
-	LITERS( "liters", "l", "liters" ),
-	TABLESPOONS( "tablespoons", "tbl", "tablespoons" );
-	
-	@Override
+public abstract class VolumeType
+		extends ConversionType
+{
 	/**
 	 * Returns false.
 	 */
-	public boolean isTemperatureType() { return false; }
-	
 	@Override
+	public boolean isTemperatureType()
+	{
+		return false;
+	}
+	
 	/**
 	 * Returns true.
 	 */
-	public boolean isVolumeType() { return true; }
-	
-	/**
-	 * Returns a string representation of the type suitable for printing.
-	 */
 	@Override
-	public String getPrintableName() { return printName; }
-
-	/**
-	 * Returns the type's symbol value.
-	 */
-	@Override
-	public String getSymbol() { return symbol; }
-
-	/**
-	 * Returns a string representation of the type suitable for creating
-	 * converter instances with ObjectFactory.
-	 */
-	@Override
-	public String toString() { return objectKey; }
-
-	private VolumeType( String printName, String symbol, String objectKey ) {
-		this.printName = printName;
-		this.symbol = symbol;
-		this.objectKey = objectKey;
+	public boolean isVolumeType()
+	{
+		return true;
 	}
 	
-	private final String printName;
-	private final String symbol;
-	private final String objectKey;
+	/**
+	 * Returns true if this is a cubic feet measurement type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isCubicFeetType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a cubic inches measurement type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isCubicInchesType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a cups measurement type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isCupsType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a gallons measurement type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isGallonsType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a liters measurement type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isLitersType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns true if this is a tablespoons measurement type.
+	 * 
+	 * @return False.
+	 */
+	public boolean isTablespoonsType()
+	{
+		return false;
+	}
+	
+	/**
+	 * Returns the proper name of the unit type suitable for printing.
+	 * 
+	 * @return The unit type's printable name.
+	 */
+	@Override
+	public abstract String getPrintableName();
+	
+	/**
+	 * Returns the type's printable symbol.
+	 * 
+	 * @return The unit type symbol.
+	 */
+	@Override
+	public abstract String getSymbol();
 }

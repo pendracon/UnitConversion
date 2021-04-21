@@ -30,10 +30,12 @@ public class CupsConversion
 {
 	/**
 	 * Creates a new instance for converting volumes measured in cups.
+	 * 
+	 * @param type The volumetric type.
 	 */
-	public CupsConversion()
+	public CupsConversion( CupsType type )
 	{
-		super( VolumeType.CUPS );
+		super( type );
 	}
 
 	

@@ -13,8 +13,6 @@ package com.veetech.unitconversion;
 import com.veetech.unitconversion.domain.Constants;
 import com.veetech.unitconversion.domain.Conversion;
 import com.veetech.unitconversion.domain.ConversionType;
-import com.veetech.unitconversion.domain.temperature.TemperatureType;
-import com.veetech.unitconversion.domain.volume.VolumeType;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -85,7 +83,7 @@ public class CommandLine
 	public static void usage()
 	{
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-				CommandLine.class.getClassLoader().getResourceAsStream(Constants.USAGE_FILE)) ))
+				CommandLine.class.getClassLoader().getResourceAsStream(Constants.USAGE_FILE))))
 		{
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -221,13 +219,8 @@ public class CommandLine
 		Conversion converter = ConversionUtil.getConverter( unitType );
 		
 		try {
-			if (outType.isTemperatureType()) {
-				output = converter.convertTemperature( getUnitValue().toPlainString(), (TemperatureType)outType );
-			}
-			else if (outType.isVolumeType()) {
-				output = converter.convertVolume( getUnitValue().toPlainString(), (VolumeType)outType );
-			}
-
+			output = converter.convertUnits( getUnitValue().toPlainString(), outType );
+			
 			if (output != null) {
 				if (log.isDebugEnabled()) {
 					log.debug( String.format("Value %s converted to %s.", getUnitValue().toPlainString(), output.toPlainString()) );
@@ -303,15 +296,15 @@ public class CommandLine
 	{
 		boolean valid = true;
 		
-		if (fromType == null) {
+		if (fromType == null || fromType.equals(Constants.NO_VALUE)) {
 			printResult( ResultType.NO_FROM );
 			valid = false;
 		}
-		else if (toType == null) {
+		else if (toType == null || toType.equals(Constants.NO_VALUE)) {
 			printResult( ResultType.NO_TO );
 			valid = false;
 		}
-		else if (units == null) {
+		else if (units == null || units.equals(Constants.NO_VALUE)) {
 			printResult( ResultType.NO_UNITS );
 			valid = false;
 		}

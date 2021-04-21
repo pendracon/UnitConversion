@@ -31,10 +31,12 @@ public class CubicInchesConversion
 {
 	/**
 	 * Creates a new instance for converting volumes measured in cubic inches.
+	 * 
+	 * @param type The volumetric type.
 	 */
-	public CubicInchesConversion()
+	public CubicInchesConversion( CubicInchesType type )
 	{
-		super( VolumeType.CUBIC_INCHES );
+		super( type );
 	}
 
 	

@@ -30,10 +30,12 @@ public class GallonsConversion
 {
 	/**
 	 * Creates a new instance for converting volumes measured in gallons.
+	 * 
+	 * @param type The volumetric type.
 	 */
-	public GallonsConversion()
+	public GallonsConversion( GallonsType type )
 	{
-		super( VolumeType.GALLONS );
+		super( type );
 	}
 
 	

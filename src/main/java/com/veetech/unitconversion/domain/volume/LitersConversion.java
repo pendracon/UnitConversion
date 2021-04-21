@@ -31,10 +31,12 @@ public class LitersConversion
 {
 	/**
 	 * Creates a new instance for converting volumes measured in liters.
+	 * 
+	 * @param type The volumetric type.
 	 */
-	public LitersConversion()
+	public LitersConversion( LitersType type )
 	{
-		super( VolumeType.LITERS );
+		super( type );
 	}
 
 	

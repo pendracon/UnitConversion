@@ -10,8 +10,6 @@
  */
 package com.veetech.unitconversion.domain;
 
-import com.veetech.unitconversion.domain.volume.VolumeType;
-import com.veetech.unitconversion.domain.temperature.TemperatureType;
 import java.math.BigDecimal;
 
 
@@ -28,33 +26,18 @@ public interface Conversion
 	 * 
 	 * @return The unit conversion type.
 	 */
-	public ConversionType getConversionType();
-	
+	ConversionType getConversionType();
+
 	/**
-	 * Converts the given source units value to the specified target temperature
-	 * type.
+	 * Converts the given source units value to the specified target type.
 	 * 
 	 * Throws an exception if temperature conversion is not supported, if the
 	 * given units are non-numeric, or if either parameter value is null.
 	 * 
-	 * @param units The source temperature value to convert.
-	 * @param type The target temperature type to return.
-	 * @return The converted temperature value.
+	 * @param units The source unit type value to convert.
+	 * @param type The target unit type to return.
+	 * @return The converted value.
 	 */
-	public BigDecimal convertTemperature( String units, TemperatureType type )
-			throws NullPointerException, NumberFormatException, UnsupportedOperationException;
-	
-	/**
-	 * Converts the given source units value to the specified target volume
-	 * type.
-	 * 
-	 * Throws an exception if volumetric conversion is not supported, if the
-	 * given units are non-numeric, or if either parameter value is null.
-	 * 
-	 * @param units The source volume value to convert.
-	 * @param type The target volume type to return.
-	 * @return The converted volumetric value.
-	 */
-	public BigDecimal convertVolume( String units, VolumeType type )
+	BigDecimal convertUnits( String units, ConversionType type )
 			throws NullPointerException, NumberFormatException, UnsupportedOperationException;
 }

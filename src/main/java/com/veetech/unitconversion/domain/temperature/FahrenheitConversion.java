@@ -28,10 +28,12 @@ public class FahrenheitConversion
 	/**
 	 * Creates a new instance for converting temperatures measured in
 	 * Fahrenheit.
+	 * 
+	 * @param type The temperature type.
 	 */
-	public FahrenheitConversion()
+	public FahrenheitConversion( FahrenheitType type )
 	{
-		super( TemperatureType.FAHRENHEIT );
+		super( type );
 	}
 
 	

@@ -1,10 +1,96 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Start Page</title>
+        <title>Unit Conversion</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            form  { display: table;      }
+            p     { display: table-row;  }
+            label { display: table-cell; }
+            input { display: table-cell; }
+        </style>
+        <script src="scripts/conversion.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div id="intro" style="display: table;">
+            <span style="display: table-row;">
+                <span style="display: table-cell; vertical-align: middle;">
+                    <img src="images/prof-frink-jr-2.png" height="100" width="155"/>
+                </span>
+                &nbsp;&nbsp;
+                <span style="display: table-cell; vertical-align: middle;">
+                    <h2>Unit<br>Conversion</h2>
+                </span>
+            </span>
+        </div>
+        <div style="display: table;">
+            <span style="display: table-row; text-align: center;">
+                Temperature and dry volume unit conversion<br>
+                by <b><i>VeeTech</i></b>
+            </span>
+        </div>
+        <br>
+        <div id="form">
+            <div>
+                <div>
+                    <p>
+                        Enter the type of unit to convert, the type to return, the value to convert, <br>
+                        and an optional value to validate against the result.
+                    </p>
+                </div>
+                <div>
+                    <h3>Supported types include:</h3>
+                    <ul>
+                        <li><b>Temperature:</b> <i>Celsius</i>, <i>Fahrenheit</i>, <i>Kelvin</i>, and <i>Rankine</i></li>
+                        <li><b>Volumetric:</b> <i>cubic inches</i>, <i>cubic feet</i>, <i>cups</i>,
+                            <i>gallons</i>, <i>liters</i>, and <i>tablespoons</i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="formBox" style="display: table;">
+                <div style="display: table-row;">
+                    <div style="display: table-cell;">
+                        <form id="conversionForm">
+                            <p>
+                                <label for="fromType" style="text-align: right;">From:</label>&nbsp;
+                                <input name="fromType" type="text" onChange="hideResults(); return false;"/>
+                            </p>
+                            <p>
+                                <label for="toType" style="text-align: right;">To:</label>&nbsp;
+                                <input name="toType" type="text" onChange="hideResults(); return false;"/>
+                            </p>
+                            <p>
+                                <label for="units" style="text-align: right;">Amount:</label>&nbsp;
+                                <input name="units" type="text" onChange="hideResults(); return false;"/>
+                            </p>
+                            <p>
+                                <label for="validation" style="text-align: right;">Validate:</label>&nbsp;
+                                <input name="validation" type="text" onChange="hideResults(); return false;"/>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <div style="display: table-row; text-align: center;">
+                    <div style="display: table-cell;">
+                        <a href="#" onClick="showResults(); return false;">
+                            <b><label id="userPrompt">Convert it</label></b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div id="results" style="visibility: hidden; display: table;">
+            <div style="display: table-row">
+                <b><label id="conversionVersion"></label></b>
+            </div>
+            <div style="display: table-row">
+                <label id="conversionResults"></label>
+            </div>
+            <div style="display: table-row">
+                <label id="validationResults"></label>
+            </div>
+        </div>
     </body>
 </html>

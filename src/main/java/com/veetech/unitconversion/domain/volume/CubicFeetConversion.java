@@ -29,10 +29,12 @@ public class CubicFeetConversion
 {
 	/**
 	 * Creates a new instance for converting volumes measured in cubic feet.
+	 * 
+	 * @param type The volumetric type.
 	 */
-	public CubicFeetConversion()
+	public CubicFeetConversion( CubicFeetType type )
 	{
-		super( VolumeType.CUBIC_FEET );
+		super( type );
 	}
 
 	

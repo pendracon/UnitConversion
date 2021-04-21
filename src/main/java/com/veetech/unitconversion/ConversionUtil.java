@@ -13,9 +13,7 @@ package com.veetech.unitconversion;
 import com.veetech.unitconversion.domain.Constants;
 import com.veetech.unitconversion.domain.Conversion;
 import com.veetech.unitconversion.domain.ConversionType;
-import com.veetech.unitconversion.domain.temperature.TemperatureType;
-import com.veetech.unitconversion.domain.volume.VolumeType;
-import com.veetech.unitconversion.factory.ObjectFactory;
+import com.veetech.factory.ObjectFactory;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -71,9 +69,14 @@ public class ConversionUtil
 		Conversion converter = null;
 		
 		try {
-			return (Conversion) ObjectFactory.getInstance().createObject( type.toString() );
+			return (Conversion) ObjectFactory.getInstance().createObject( type.getFactoryKey(), new Object[] {type} );
 		}
-		catch( ClassNotFoundException | InstantiationException exc ) {
+		catch (ClassNotFoundException exc) {
+			if (log.isDebugEnabled()) {
+				log.debug( String.format("Converter for units type %s not found.", type), exc );
+			}
+		}
+		catch (InstantiationException exc) { 
 			if (log.isErrorEnabled()) {
 				log.error( String.format("Failed to create converter for units type %s.", type), exc );
 			}
@@ -97,26 +100,24 @@ public class ConversionUtil
 	{
 		ConversionType ctype = null;
 		
-		ConversionType[] types = TemperatureType.values();
-		for (ConversionType itype : types) {
-			if (((TemperatureType)itype).name().equalsIgnoreCase(type)) {
-				ctype = itype;
-				break;
-			}
+		String key = type.replaceAll( "_", "" ).replaceAll( "-", "" ).toLowerCase() + "Type";
+
+		try {
+			ctype = (ConversionType) ObjectFactory.getInstance().createObject( key );
 		}
-		
-		if (ctype == null) {
-			types = VolumeType.values();
-			for (ConversionType itype : types) {
-				if (((VolumeType)itype).name().equalsIgnoreCase(type)) {
-					ctype = itype;
-					break;
-				}
+		catch (ClassNotFoundException exc) {
+			if (log.isDebugEnabled()) {
+				log.debug( String.format("Conversion type instance for key '%s' not found.", key), exc );
 			}
-		}
-		
-		if (ctype == null) {
+			
 			throw new IllegalArgumentException( String.format("No matching conversion type for '%s'.", type) );
+		}
+		catch (InstantiationException exc) {
+			if (log.isErrorEnabled()) {
+				log.error( String.format("Failed to create conversion type instance for key '%s'.", key), exc );
+			}
+			
+			throw new IllegalArgumentException( String.format("Conversion type error for '%s'.", type) );
 		}
 		
 		return ctype;
@@ -148,7 +149,7 @@ public class ConversionUtil
 	 */
 	public static String textFormat( String template, Map<String,String> tokens )
 	{
-		String value = null;
+		String value;
 		String text = template;
 		
 		for (String token : tokens.keySet()) {

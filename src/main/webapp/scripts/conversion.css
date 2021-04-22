@@ -1,0 +1,10 @@
+form      { display: table;      }
+p         { display: table-row;  }
+label     { display: table-cell; }
+input     { display: table-cell; }
+div.table { display: table;      }
+div.row   { display: table-row;  }
+div.cell  { display: table-cell; }
+span.row  { display: table-row;  }
+span.line { display: table-row;  text-align: center;     }
+span.coln { display: table-cell; vertical-align: middle; }

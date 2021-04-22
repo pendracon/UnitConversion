@@ -271,7 +271,7 @@ public class CommandLine
 	 */
 	protected void printResult( ResultType result, Object[] parms )
 	{
-		StringBuilder message = new StringBuilder( "Unit Conversion 1.0:\n" ).
+		StringBuilder message = new StringBuilder( "Unit Conversion ${project.version}:\n" ).
 				append( "  " ).
 				append( String.format(ConversionUtil.getMessageText(result.toString()), parms) );
 		System.out.println( message );
@@ -328,7 +328,7 @@ public class CommandLine
 	}
 	
 	
-	protected static enum ResultType {
+	public static enum ResultType {
 		CONVERTED( "convertedResult" ),
 		VALIDATED( "validationGood" ),
 		INCORRECT( "validationBad" ),

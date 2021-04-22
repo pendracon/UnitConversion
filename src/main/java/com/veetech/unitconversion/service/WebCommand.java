@@ -34,21 +34,38 @@ public class WebCommand
 	 * @param units The value to convert.
 	 * @param validation The value to validate.
 	 */
-	protected WebCommand( String fromType, String toType, String units, String validation )
+	public WebCommand( String fromType, String toType, String units, String validation )
 	{
 		super( fromType, toType, units, validation );		
 	}
+
 	
 	/**
 	 * Returns the conversion result in JSON formation.
 	 * 
 	 * @return The conversion result.
 	 */
-	protected String getResponseBody()
+	public String getResponseBody()
 	{
 		return responseBody;
 	}
+	
+	/**
+	 * Cleans up the instance.
+	 */
+	@Override
+	public void cleanup()
+	{
+		super.cleanup();
+		
+		queryFromType = null;
+		queryToType = null;
+		queryUnits = null;
+		queryValidation = null;
+		responseBody = null;
+	}
 
+	
 	/**
 	 * Returns the unit type to convert.
 	 * 
@@ -61,7 +78,7 @@ public class WebCommand
 			type = getFromType().getPrintableName();
 		}
 
-		return type;
+		return (type != null ? type : Constants.NO_VALUE);
 	}
 	
 	/**
@@ -76,7 +93,7 @@ public class WebCommand
 			type = getToType().getPrintableName();
 		}
 
-		return type;
+		return (type != null ? type : Constants.NO_VALUE);
 	}
 	
 	/**
@@ -91,7 +108,7 @@ public class WebCommand
 			value = ConversionUtil.toSingleScale(getUnitValue()).toPlainString();
 		}
 
-		return value;
+		return (value != null ? value : Constants.NO_VALUE);
 	}
 	
 	/**
@@ -106,7 +123,7 @@ public class WebCommand
 			value = getOutputValue().toPlainString();
 		}
 
-		return value;
+		return (value != null ? value : Constants.NO_VALUE);
 	}
 	
 	/**
@@ -121,7 +138,7 @@ public class WebCommand
 			value = ConversionUtil.toSingleScale(getValidationValue()).toPlainString();
 		}
 
-		return value;
+		return (value != null ? value : Constants.NO_VALUE);
 	}
 	
 	/**
@@ -211,21 +228,6 @@ public class WebCommand
 		queryValidation = validation;
 
 		return super.validateParameters( fromType, toType, units, validation );
-	}
-	
-	/**
-	 * Cleans up the instance.
-	 */
-	@Override
-	protected void cleanup()
-	{
-		super.cleanup();
-		
-		queryFromType = null;
-		queryToType = null;
-		queryUnits = null;
-		queryValidation = null;
-		responseBody = null;
 	}
 
 	

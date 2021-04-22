@@ -163,7 +163,7 @@ public class ConversionUtil
 	}
 
 	
-	private final static Log log = LogFactory.getLog( CommandLine.class );
+	private final static Log log = LogFactory.getLog( ConversionUtil.class );
 	
 	private final static Properties messages = new Properties();
 	static {

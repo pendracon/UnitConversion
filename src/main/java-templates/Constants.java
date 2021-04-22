@@ -20,6 +20,7 @@ public interface Constants {
 	// Shared
 	public final static String CLASSES = "classes.properties";
 	public final static String MESSAGES = "messages.properties";
+	public final static String VERSION = "Unit Conversion ${project.version}";
 	public final static String DEFAULT_MESSAGE_TEXT = "Message text not found.";
 	public final static String NO_VALUE = "NONE";
 	

@@ -1,23 +1,24 @@
 Unit Conversion Command Line usage:
-    --convertFrom=<temperature|volume type>
-        Give the units type to convert.
 
-    --convertTo=<temperature|volume type>
-        Give the units type to output.
+--convertFrom=<temperature|volume type>
+    Give the units type to convert.
 
-        * Valid type values include -
-            Temperature types: celsius, fahrenheit, kelvin, rankine
-                 Volume types: cubic_feet, cubic_inches, cups, gallons,
-                               liters, tablespoons
+--convertTo=<temperature|volume type>
+    Give the units type to output.
 
-    --units=<value>
-        Give the value to convert.
+    * Valid type values include -
+        Temperature types: celsius, fahrenheit, kelvin, rankine
+             Volume types: cubic_feet, cubic_inches, cups, gallons,
+                           liters, tablespoons
 
-    [--validate=<value>]
-        Give an optional value to validate against the converted result.
+--units=<value>
+    Give the value to convert.
 
-    --help
-        Display this usage text.
+[--validate=<value>]
+    Give an optional value to validate against the converted result.
+
+--help
+    Display this usage text.
 
 Resulting values are displayed with rounding in tenths. If a validation value
 is provided then the result of the validation is displayed as 'correct' or
@@ -25,25 +26,25 @@ is provided then the result of the validation is displayed as 'correct' or
 
 Examples:
 [convert] --convertFrom=celsius --convertTo=fahrenheit --units=100
-Unit Conversion 1.0:
+Unit Conversion ${project.version}:
   Result: 100.0/C = 212.0/F
 
 [convert] --convertFrom=celsius --convertTo=fahrenheit --units=100 --validate=212
-Unit Conversion 1.0:
+Unit Conversion ${project.version}:
   Result: 100.0/C = 212.0/F, Validate 212.0 = Correct
 
 [convert] --convertTo=gallons --units=100
-Unit Conversion 1.0:
+Unit Conversion ${project.version}:
   Error: From conversion type not provided.
 
 [convert] --convertFrom=celsius --convertTo=gallons --units=abc
-Unit Conversion 1.0:
+Unit Conversion ${project.version}:
   Invalid: Can not convert or validate non-numeric value 'abc'.
 
 [convert] --convertFrom=celsius --convertTo=gallons --units=100
-Unit Conversion 1.0:
-  Invalid: Can not convert different unit types 'Celsius' --> 'gallons'.
+Unit Conversion ${project.version}:
+  Invalid: Can not convert different unit types 'Celsius' to 'gallons'.
 
 [convert] --convertFrom=dog --convertTo=gallons --units=100
-Unit Conversion 1.0:
+Unit Conversion ${project.version}:
   Invalid: Can not convert unknown unit type 'dog'.

@@ -2,43 +2,40 @@
 <html>
     <head>
         <title>Unit Conversion</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <style>
-            form  { display: table;      }
-            p     { display: table-row;  }
-            label { display: table-cell; }
-            input { display: table-cell; }
-        </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="scripts/conversion.css"/>
         <script src="scripts/conversion.js"></script>
     </head>
     <body>
-        <div id="intro" style="display: table;">
-            <span style="display: table-row;">
-                <span style="display: table-cell; vertical-align: middle;">
+        <div id="intro" class="table">
+            <span class="row">
+                <span class="coln">
                     <img src="images/prof-frink-jr-2.png" height="100" width="155"/>
                 </span>
                 &nbsp;&nbsp;
-                <span style="display: table-cell; vertical-align: middle;">
+                <span class="coln">
                     <h2>Unit<br>Conversion</h2>
                 </span>
             </span>
         </div>
-        <div style="display: table;">
-            <span style="display: table-row; text-align: center;">
-                Temperature and dry volume unit conversion<br>
-                by <b><i>VeeTech</i></b>
+        <div class="table">
+            <span class="line">
+                Temperature and dry volume unit conversion
+            </span>
+            <span class="line">
+                with <i>"Professor Frink"</i>, ver. ${project.version}
             </span>
         </div>
         <br>
         <div id="form">
-            <div>
-                <div>
-                    <p>
-                        Enter the type of unit to convert, the type to return, the value to convert, <br>
+            <div class="table">
+                <div class="row">
+                    <p style="display: table-cell; max-width: 500px;">
+                        Enter the type of unit to convert, the type to return, the value to convert, 
                         and an optional value to validate against the result.
                     </p>
                 </div>
-                <div>
+                <div class="row">
                     <h3>Supported types include:</h3>
                     <ul>
                         <li><b>Temperature:</b> <i>Celsius</i>, <i>Fahrenheit</i>, <i>Kelvin</i>, and <i>Rankine</i></li>
@@ -47,9 +44,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="formBox" style="display: table;">
-                <div style="display: table-row;">
-                    <div style="display: table-cell;">
+            <div class="table">
+                <div class="row">
+                    <div class="cell">
                         <form id="conversionForm">
                             <p>
                                 <label for="fromType" style="text-align: right;">From:</label>&nbsp;
@@ -72,7 +69,7 @@
                 </div>
                 <br>
                 <div style="display: table-row; text-align: center;">
-                    <div style="display: table-cell;">
+                    <div class="cell">
                         <a href="#" onClick="showResults(); return false;">
                             <b><label id="userPrompt">Convert it</label></b>
                         </a>
@@ -82,13 +79,13 @@
         </div>
         <br><br>
         <div id="results" style="visibility: hidden; display: table;">
-            <div style="display: table-row">
+            <div class="row">
                 <b><label id="conversionVersion"></label></b>
             </div>
-            <div style="display: table-row">
+            <div class="row">
                 <label id="conversionResults"></label>
             </div>
-            <div style="display: table-row">
+            <div class="row">
                 <label id="validationResults"></label>
             </div>
         </div>

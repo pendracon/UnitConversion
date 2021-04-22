@@ -271,7 +271,7 @@ public class CommandLine
 	 */
 	protected void printResult( ResultType result, Object[] parms )
 	{
-		StringBuilder message = new StringBuilder( "Unit Conversion ${project.version}:\n" ).
+		StringBuilder message = new StringBuilder( String.format("%s:\n", Constants.VERSION) ).
 				append( "  " ).
 				append( String.format(ConversionUtil.getMessageText(result.toString()), parms) );
 		System.out.println( message );

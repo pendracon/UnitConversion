@@ -133,6 +133,7 @@ function submitForm( data ) {
  */
 function clearForm() {
     document.forms['conversionForm'].reset();
+    setInputFocus();
 }
 
 /*
@@ -177,7 +178,14 @@ function hideOrShowResults() {
     }
 }
 
-/**
+/*
+ * Set focus on first form field.
+ */
+function setInputFocus() {
+    document.getElementById("fromType").focus();
+}
+
+/*
  * Hide results.
  */
 function hideResults() {

@@ -4,7 +4,7 @@ REM ========================================
 REM  Startup batch file for Unit Conversion
 REM ========================================
 
-set HOMEDIR=C:\UnitConversionCLI
+set HOMEDIR=C:\${CONTEXT}CLI
 set LIBSDIR=%HOMEDIR%\lib
 set CONFDIR=%HOMEDIR%\config
 set RUNTIME=%LIBSDIR%\${NAME}-${VERS}-jar-with-dependencies.jar

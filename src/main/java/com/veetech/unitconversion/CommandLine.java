@@ -106,17 +106,19 @@ public class CommandLine
 				this.fromType = ConversionUtil.getConversionType( fromType );
 				this.toType = ConversionUtil.getConversionType( toType );
 				this.units = new BigDecimal( units );
-				if (validation != null && !validation.equals(Constants.NO_VALUE)) {
-					this.validation = new BigDecimal( validation );
+				try {
+					if (validation != null && !validation.equals(Constants.NO_VALUE)) {
+						this.validation = new BigDecimal( validation );
+					}
+				}
+				catch (NumberFormatException exc ) {
+					// bad validation input
 				}
 				initialized = true;
 			}
 			catch (NumberFormatException exc) {
 				if (this.units == null) {
 					printResult( ResultType.BAD_UNITS, new Object[] {units} );
-				}
-				else if (this.validation == null) {
-					printResult( ResultType.BAD_VALUE, new Object[] {validation} );
 				}
 				else if (log.isErrorEnabled()) {
 					log.error( "Unexpected error while validating parameters.", exc );
@@ -188,6 +190,16 @@ public class CommandLine
 	}
 
 	/**
+	 * Returns the unit value to validate as a string.
+	 * 
+	 * @return The validation units.
+	 */
+	protected String getValidationUnits()
+	{
+		return validationUnits;
+	}
+
+	/**
 	 * Returns true if a value to validate is entered.
 	 * 
 	 * @return True if perform validation.
@@ -226,25 +238,28 @@ public class CommandLine
 					log.debug( String.format("Value %s converted to %s.", getUnitValue().toPlainString(), output.toPlainString()) );
 				}
 				
-				ArrayList<String> results = new ArrayList();
-				results.add( ConversionUtil.toSingleScale(getUnitValue()).toPlainString() );
-				results.add( unitType.getSymbol() );
-				results.add( output.toPlainString() );
-				results.add( outType.getSymbol() );
+				ResultType result = ResultType.CONVERTED;
+				ArrayList<String> resultData = new ArrayList();
+				resultData.add( ConversionUtil.toSingleScale(getUnitValue()).toPlainString() );
+				resultData.add( unitType.getSymbol() );
+				resultData.add( output.toPlainString() );
+				resultData.add( outType.getSymbol() );
 				
 				if (doValidation()) {
 					BigDecimal validatedValue = ConversionUtil.toSingleScale( getValidationValue() );
-					results.add( validatedValue.toPlainString() );
+					resultData.add( validatedValue.toPlainString() );
 					if (validatedValue.compareTo(output) == 0) {
-						printResult( ResultType.VALIDATED, results.toArray() );
+						result = ResultType.VALIDATED;
 					}
 					else {
-						printResult( ResultType.INCORRECT, results.toArray() );
+						result = ResultType.INCORRECT;
 					}
 				}
-				else {
-					printResult( ResultType.CONVERTED, results.toArray() );
+				else if (getValidationUnits() != null && !getValidationUnits().equals(Constants.NO_VALUE)) {
+					resultData.add( getValidationUnits() );
+					result = ResultType.INCORRECT;
 				}
+				printResult( result, resultData.toArray() );
 			}
 		}
 		catch (UnsupportedOperationException exc) {
@@ -377,7 +392,7 @@ public class CommandLine
 	private BigDecimal units;
 	private BigDecimal output;
 	private BigDecimal validation;
-	private String validationUnits;  // place holder for children
+	private String validationUnits;
 	
 	private final static Log log = LogFactory.getLog( CommandLine.class );
 }

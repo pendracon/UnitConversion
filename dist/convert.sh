@@ -2,7 +2,8 @@
 #
 # Script for running Unit Conversion from Linux command line.
 #
-export APPHOME=${APPHOME:-~/UnitConversionCLI}
+export DIRNAME=${CONTEXT}CLI
+export APPHOME=${APPHOME:-~/$DIRNAME}
 
 LIBDIR=${LIBDIR:-${APPHOME}/lib}
 CONFIG=${CONFIG:-${APPHOME}/config}

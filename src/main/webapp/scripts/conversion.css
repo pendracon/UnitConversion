@@ -10,6 +10,11 @@
     display: table-cell;
 }
 
+.table-cell-center {
+    display: table-cell;
+    text-align: center;
+}
+
 .table-row-center {
     display: table-row;
     text-align: center;

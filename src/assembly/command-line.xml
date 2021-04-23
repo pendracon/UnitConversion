@@ -17,7 +17,7 @@ Contributors:
     <formats>
         <format>zip</format>
     </formats>
-    <baseDirectory>UnitConversionCLI</baseDirectory>
+    <baseDirectory>${project.context}CLI</baseDirectory>
     <fileSets>
         <fileSet>
             <directory>${basedir}/dist</directory>

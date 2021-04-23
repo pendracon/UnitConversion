@@ -17,7 +17,7 @@ public class TempsConversionTest
 		
 		try {
 			converter.convertUnits( null, getConversionType("celsius") );
-			Assert.fail();
+			Assert.fail( "Unexpected successful conversion from type 'null'." );
 		}
 		catch (NullPointerException exc) {
 			Assert.assertTrue( true );
@@ -25,7 +25,7 @@ public class TempsConversionTest
 
 		try {
 			converter.convertUnits( "100", null );
-			Assert.fail();
+			Assert.fail( "Unexpected successful conversion to type 'null'." );
 		}
 		catch (NullPointerException exc) {
 			Assert.assertTrue( true );
@@ -40,7 +40,7 @@ public class TempsConversionTest
 
 		try {
 			converter.convertUnits( "100",  getConversionType("gallons")  );
-			Assert.fail();
+			Assert.fail( "Unexpected successful conversion from fahrenheit to gallons." );
 		}
 		catch (UnsupportedOperationException exc) {
 			Assert.assertTrue( true );
@@ -128,11 +128,11 @@ public class TempsConversionTest
 	}
 	
 	@Test
-	public void fromDog()
+	public void typeDog()
 	{
 		try {
 			getConverter( getConversionType("DOG") );
-			Assert.fail();
+			Assert.fail( "Got unexpected conversion type 'DOG'." );
 		}
 		catch (IllegalArgumentException exc) {
 			Assert.assertTrue( true );

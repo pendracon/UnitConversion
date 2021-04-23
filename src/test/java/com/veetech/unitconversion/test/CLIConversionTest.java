@@ -60,7 +60,7 @@ public class CLIConversionTest
 	// --convertFrom=celsius --convertTo=cups --units=100 --validate=200
 	// ResultType = INCORRECT
 	@Test
-	public void inputBadValidation()
+	public void inputWrongValidation()
 	{
 		String[] args = {
 			"--convertFrom=celsius",
@@ -71,6 +71,22 @@ public class CLIConversionTest
 		
 		CommandLine.main( args );
 		verify( getOutput(), ResultType.INCORRECT );
+	}
+
+	// --convertFrom=celsius --convertTo=cups --units=100 --validate=dog
+	// ResultType = INCORRECT
+	@Test
+	public void inputBadValidation()
+	{
+		String[] args = {
+			"--convertFrom=celsius",
+			"--convertTo=fahrenheit",
+			"--units=100",
+			"--validate=dog"
+		};
+		
+		CommandLine.main( args );
+		verify( getOutput(), ResultType.BAD_VALUE );
 	}
 
 	// --convertFrom=cups --convertTo=pints --units=100

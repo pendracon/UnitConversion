@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Unit Conversion</title>
+        <title>${project.name}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" type="text/css" href="scripts/conversion.css"/>
         <script src="scripts/conversion.js"></script>
     </head>
     <body>
-        <div id="intro" class="table">
-            <span class="row">
-                <span class="coln">
+        <!-- Intro -->
+        <div class="table">
+            <span class="table-row">
+                <span class="table-cell-middle">
                     <img src="images/prof-frink-jr-2.png" height="100" width="155"/>
                 </span>
                 &nbsp;&nbsp;
-                <span class="coln">
+                <span class="table-cell-middle">
                     <h2>Unit<br>Conversion</h2>
                 </span>
             </span>
         </div>
         <div class="table">
-            <span class="line">
+            <span class="table-row-center">
                 Temperature and dry volume unit conversion
             </span>
-            <span class="line">
+            <span class="table-row-center">
                 with <i>"Professor Frink"</i>, ver. ${project.version}
             </span>
         </div>
         <br>
-        <div id="form">
+        <!-- Form -->
+        <div>
             <div class="table">
-                <div class="row">
+                <div class="table-row">
                     <p style="display: table-cell; max-width: 500px;">
                         Enter the type of unit to convert, the type to return, the value to convert, 
                         and an optional value to validate against the result.
                     </p>
                 </div>
-                <div class="row">
+                <div class="table-row">
                     <h3>Supported types include:</h3>
                     <ul>
                         <li><b>Temperature:</b> <i>Celsius</i>, <i>Fahrenheit</i>, <i>Kelvin</i>, and <i>Rankine</i></li>
@@ -45,31 +47,31 @@
                 </div>
             </div>
             <div class="table">
-                <div class="row">
-                    <div class="cell">
-                        <form id="conversionForm">
-                            <p>
-                                <label for="fromType" style="text-align: right;">From:</label>&nbsp;
-                                <input name="fromType" type="text" onChange="hideResults(); return false;"/>
+                <div class="table-row">
+                    <div class="table-cell">
+                        <form id="conversionForm" class="table">
+                            <p class="table-row">
+                                <label for="fromType" class="table-cell-right">From:</label>&nbsp;
+                                <input name="fromType" class="table-cell" type="text" onChange="hideResults(); return false;"/>
                             </p>
-                            <p>
-                                <label for="toType" style="text-align: right;">To:</label>&nbsp;
-                                <input name="toType" type="text" onChange="hideResults(); return false;"/>
+                            <p class="table-row">
+                                <label for="toType" class="table-cell-right">To:</label>&nbsp;
+                                <input name="toType" class="table-cell" type="text" onChange="hideResults(); return false;"/>
                             </p>
-                            <p>
-                                <label for="units" style="text-align: right;">Amount:</label>&nbsp;
-                                <input name="units" type="text" onChange="hideResults(); return false;"/>
+                            <p class="table-row">
+                                <label for="units" class="table-cell-right">Amount:</label>&nbsp;
+                                <input name="units" class="table-cell" type="text" onChange="hideResults(); return false;"/>
                             </p>
-                            <p>
-                                <label for="validation" style="text-align: right;">Validate:</label>&nbsp;
-                                <input name="validation" type="text" onChange="hideResults(); return false;"/>
+                            <p class="table-row">
+                                <label for="validation" class="table-cell-right">Validate:</label>&nbsp;
+                                <input name="validation" class="table-cell" type="text" onChange="hideResults(); return false;"/>
                             </p>
                         </form>
                     </div>
                 </div>
                 <br>
-                <div style="display: table-row; text-align: center;">
-                    <div class="cell">
+                <div class="table-row-center">
+                    <div class="table-cell">
                         <a href="#" onClick="showResults(); return false;">
                             <b><label id="userPrompt">Convert it</label></b>
                         </a>
@@ -78,15 +80,16 @@
             </div>
         </div>
         <br><br>
+        <!-- Results -->
         <div id="results" style="visibility: hidden; display: table;">
             <div class="row">
-                <b><label id="conversionVersion"></label></b>
+                <b><label id="conversionVersion" class="table-row"></label></b>
             </div>
             <div class="row">
-                <label id="conversionResults"></label>
+                <label id="conversionResults" class="table-row"></label>
             </div>
             <div class="row">
-                <label id="validationResults"></label>
+                <label id="validationResults" class="table-row"></label>
             </div>
         </div>
     </body>

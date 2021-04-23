@@ -169,7 +169,7 @@ public class ObjectFactory
 		synchronized (constructors) {
 			Constructor ctor = constructors.get( key );
 
-			if( ctor == null ) {
+			if (ctor == null) {
 				try {
 					ctor = cls.getConstructor( asClassArray(parms) );
 					constructors.put( key, ctor );
@@ -195,7 +195,7 @@ public class ObjectFactory
 			bundle.load( getClass().getClassLoader().getResourceAsStream(Constants.CLASSES) );
 		}
 		catch (IOException exc) {
-			if (log.isWarnEnabled() ) {
+			if (log.isWarnEnabled()) {
 				log.warn( String.format("Could not load resource %s.", Constants.CLASSES) );
 			}
 		}

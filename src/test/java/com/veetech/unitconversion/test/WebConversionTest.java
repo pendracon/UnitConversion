@@ -99,7 +99,7 @@ public class WebConversionTest
 		String response = web.getResponseBody();
 		web.cleanup();
 		
-		verify( response, "some", Constants.NO_VALUE, Constants.NO_VALUE, "Incorrect" );
+		verify( response, "some", Constants.NO_VALUE, Constants.NO_VALUE, "Invalid" );
 	}
 	
 	// Request:
@@ -117,7 +117,7 @@ public class WebConversionTest
 		String response = web.getResponseBody();
 		web.cleanup();
 		
-		verify( response, "100.0", Constants.NO_VALUE, Constants.NO_VALUE, "Incorrect" );
+		verify( response, "100.0", Constants.NO_VALUE, Constants.NO_VALUE, "Invalid" );
 	}
 	
 	// Request:
@@ -135,7 +135,7 @@ public class WebConversionTest
 		String response = web.getResponseBody();
 		web.cleanup();
 		
-		verify( response, Constants.NO_VALUE, Constants.NO_VALUE, Constants.NO_VALUE, "Incorrect" );
+		verify( response, Constants.NO_VALUE, Constants.NO_VALUE, Constants.NO_VALUE, "Invalid" );
 	}
 	
 	
@@ -156,6 +156,7 @@ public class WebConversionTest
 			Assert.assertEquals( outputValue, json.get("outputValue") );
 			Assert.assertEquals( validationValue, json.get("validationValue") );
 			Assert.assertEquals( validation, json.get("validation") );
+			Assert.assertNotEquals( null, json.get("appResult") );
 			
 			Assert.assertEquals( Constants.VERSION, json.get("appVersion") );
 		}

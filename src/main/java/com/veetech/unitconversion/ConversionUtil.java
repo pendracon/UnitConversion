@@ -154,7 +154,7 @@ public class ConversionUtil
 		
 		for (String token : tokens.keySet()) {
 			value = tokens.get( token );
-			if( token != null && value != null ) {
+			if (token != null && value != null) {
 				text = text.replaceAll( token, value );
 			}
 		}

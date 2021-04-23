@@ -1,4 +1,4 @@
-Unit Conversion Command Line usage:
+${project.name} usage:
 
 --convertFrom=<temperature|volume type>
     Give the units type to convert.
@@ -26,25 +26,29 @@ is provided then the result of the validation is displayed as 'correct' or
 
 Examples:
 [convert] --convertFrom=celsius --convertTo=fahrenheit --units=100
-Unit Conversion ${project.version}:
+${project.name} ${project.version}:
   Result: 100.0/C = 212.0/F
 
 [convert] --convertFrom=celsius --convertTo=fahrenheit --units=100 --validate=212
-Unit Conversion ${project.version}:
+${project.name} ${project.version}:
   Result: 100.0/C = 212.0/F, Validate 212.0 = Correct
 
-[convert] --convertTo=gallons --units=100
-Unit Conversion ${project.version}:
-  Error: From conversion type not provided.
+[convert] --convertFrom=liters --convertTo=gallons --units=100 --validate=abc
+${project.name} ${project.version}:
+  Incorrect: Can not validate non-numeric value 'abc'.
 
-[convert] --convertFrom=celsius --convertTo=gallons --units=abc
-Unit Conversion ${project.version}:
-  Invalid: Can not convert or validate non-numeric value 'abc'.
+[convert] --convertFrom=liters --convertTo=gallons --units=abc
+${project.name} ${project.version}:
+  Invalid: Can not convert non-numeric value 'abc'.
 
 [convert] --convertFrom=celsius --convertTo=gallons --units=100
-Unit Conversion ${project.version}:
+${project.name} ${project.version}:
   Invalid: Can not convert different unit types 'Celsius' to 'gallons'.
 
 [convert] --convertFrom=dog --convertTo=gallons --units=100
-Unit Conversion ${project.version}:
+${project.name} ${project.version}:
   Invalid: Can not convert unknown unit type 'dog'.
+
+[convert] --convertTo=gallons --units=100
+${project.name} ${project.version}:
+  Error: From conversion type not provided.

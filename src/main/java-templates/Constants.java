@@ -20,7 +20,7 @@ public interface Constants {
 	// Shared
 	public final static String CLASSES = "classes.properties";
 	public final static String MESSAGES = "messages.properties";
-	public final static String VERSION = "Unit Conversion ${project.version}";
+	public final static String VERSION = "${project.name} ${project.version}";
 	public final static String DEFAULT_MESSAGE_TEXT = "Message text not found.";
 	public final static String NO_VALUE = "NONE";
 	
@@ -38,6 +38,7 @@ public interface Constants {
 	public final static String UNIT_VALUE_PARAM = "unitValue";
 	public final static String VALIDATE_VALUE_PARAM = "validateValue";
 	// - response template tags
+	public final static String APP_RESULT_TAG = "@appResult@";
 	public final static String INPUT_TYPE_TAG = "@inputType@";
 	public final static String INPUT_VALUE_TAG = "@inputValue@";
 	public final static String OUTPUT_TYPE_TAG = "@outputType@";

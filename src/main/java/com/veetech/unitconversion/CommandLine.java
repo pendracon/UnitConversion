@@ -116,7 +116,7 @@ public class CommandLine
 					printResult( ResultType.BAD_UNITS, new Object[] {units} );
 				}
 				else if (this.validation == null) {
-					printResult( ResultType.BAD_UNITS, new Object[] {validation} );
+					printResult( ResultType.BAD_VALUE, new Object[] {validation} );
 				}
 				else if (log.isErrorEnabled()) {
 					log.error( "Unexpected error while validating parameters.", exc );
@@ -253,32 +253,52 @@ public class CommandLine
 	}
 	
 	/**
-	 * Prints a result message to the console.
+	 * Prints a result message to the console and returns the message.
 	 * 
 	 * @param result The result to print.
+	 * @return The result message.
 	 */
-	protected void printResult( ResultType result )
+	protected String printResult( ResultType result )
 	{
-		printResult( result, null );
+		return printResult( result, null );
 	}
 
 	/**
-	 * Prints a result message to the console using parms as substitution values
-	 * for String.format().
+	 * Generates a result message from a template using parms as substitution
+	 * values and prints it to the console. Returns the generated message.
 	 * 
 	 * @param result The result to print.
 	 * @param parms The substitution parameters.
+	 * @return The result message.
 	 */
-	protected void printResult( ResultType result, Object[] parms )
+	protected String printResult( ResultType result, Object[] parms )
+	{
+		return printResult( result, parms, true );
+	}
+	
+	/**
+	 * Generates a result message from a template using parms as substitution
+	 * values and returns the generated message. If printMessage is true then
+	 * the message is printed to the console's standard output.
+	 * 
+	 * @param result The result to print.
+	 * @param parms The substitution parameters.
+	 * @param printMessage Flag whether to output the message to stdout.
+	 * @return The result message.
+	 */
+	protected String printResult( ResultType result, Object[] parms, boolean printMessage )
 	{
 		StringBuilder message = new StringBuilder( String.format("%s:\n", Constants.VERSION) ).
 				append( "  " ).
 				append( String.format(ConversionUtil.getMessageText(result.toString()), parms) );
-		System.out.println( message );
+		
+		if (printMessage) System.out.println( message );
 		
 		if (log.isInfoEnabled()) {
 			log.info( message );
 		}
+		
+		return message.toString();
 	}
 
 	/**
@@ -336,7 +356,8 @@ public class CommandLine
 		NO_TO( "noToType" ),
 		NO_UNITS( "noUnits" ),
 		BAD_TYPE( "badType" ),
-		BAD_UNITS( "badValue" ),
+		BAD_UNITS( "badUnits" ),
+		BAD_VALUE( "badValue" ),
 		MISMATCH( "typeMismatch" );
 	
 		@Override

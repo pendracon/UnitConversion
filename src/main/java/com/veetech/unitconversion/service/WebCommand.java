@@ -156,9 +156,9 @@ public class WebCommand
 	 * @param result The result to create.
 	 */
 	@Override
-	protected void printResult( ResultType result )
+	protected String printResult( ResultType result )
 	{
-		printResult( result, null );
+		return printResult( result, null );
 	}
 
 	/**
@@ -168,12 +168,13 @@ public class WebCommand
 	 * @param parms The substitution parameters.
 	 */
 	@Override
-	protected void printResult( ResultType result, Object[] parms )
+	protected String printResult( ResultType result, Object[] parms )
 	{
 		// We're creating just a simple result message with the following
 		// scheme, so we'll just build it manually for now, e.g.:
 		// {
 		//   "appVersion": "Unit Conversion 1.0",
+		//   "appResult": "The conversion result...",
 		//   "inputType": "Celsius",
 		//   "inputValue": "100.0",
 		//   "outputType": "Fahrenheit",
@@ -183,15 +184,27 @@ public class WebCommand
 		// }
 		//
 		String validationResult;
-		switch(result) {
+		switch (result) {
 			case CONVERTED:
 				validationResult = Constants.NO_VALUE;
 				break;
 			case VALIDATED:
 				validationResult = "Correct";
 				break;
+			case BAD_UNITS:
+			case MISMATCH:
+				validationResult = "Invalid";
+				break;
 			default:
-				validationResult = "Incorrect";
+				if( getResponseFromType().equals(Constants.NO_VALUE) ||
+					getResponseToType().equals(Constants.NO_VALUE) ||
+					getResponseUnitValue().equals(Constants.NO_VALUE) )
+				{
+					validationResult = "Invalid";
+				}
+				else {
+					validationResult = "Incorrect";
+				}
 		}
 		HashMap<String,String> templateValues = new HashMap();
 		templateValues.put( Constants.INPUT_TYPE_TAG, getResponseFromType() );
@@ -201,12 +214,23 @@ public class WebCommand
 		templateValues.put( Constants.VALIDATION_VALUE_TAG, getResponseValidationValue() );
 		templateValues.put( Constants.VALIDATION_RESULT_TAG, validationResult );
 		
-		if( log.isDebugEnabled() ) {
+		String printResult = super.printResult( result, parms, false );
+		String[] lines = printResult.split( System.getProperty("line.separator") );
+		if (lines.length == 2) {
+			templateValues.put( Constants.APP_RESULT_TAG, lines[1].trim() );
+		}
+		else {
+			templateValues.put( Constants.APP_RESULT_TAG, lines[0].trim() );
+		}
+		
+		if (log.isDebugEnabled()) {
 			log.debug( String.format("Generating response '%s' from template with values: %s", result.toString(), templateValues) );
 		}
 		
 		responseBody = ConversionUtil.textFormat(
 				ConversionUtil.getMessageText("responseBodyTemplate"), templateValues );
+		
+		return printResult;
 	}
 
 	/**

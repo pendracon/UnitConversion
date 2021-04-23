@@ -98,20 +98,4 @@ public abstract class VolumeType
 	{
 		return false;
 	}
-	
-	/**
-	 * Returns the proper name of the unit type suitable for printing.
-	 * 
-	 * @return The unit type's printable name.
-	 */
-	@Override
-	public abstract String getPrintableName();
-	
-	/**
-	 * Returns the type's printable symbol.
-	 * 
-	 * @return The unit type symbol.
-	 */
-	@Override
-	public abstract String getSymbol();
 }

@@ -41,8 +41,7 @@ public abstract class ConversionImpl
 		if (type.isTemperatureType()) {
 			this.sourceTemperatureType = (TemperatureType) type;
 		}
-		else
-		if (type.isVolumeType()) {
+		else if (type.isVolumeType()) {
 			this.sourceVolumeType = (VolumeType) type;
 		}
 		else {
@@ -178,8 +177,8 @@ public abstract class ConversionImpl
 	@Override
 	public ConversionType getConversionType()
 	{
-		if( sourceTemperatureType != null ) return sourceTemperatureType;
-		if( sourceVolumeType != null ) return sourceVolumeType;
+		if (sourceTemperatureType != null) return sourceTemperatureType;
+		if (sourceVolumeType != null) return sourceVolumeType;
 		
 		return null;
 	}

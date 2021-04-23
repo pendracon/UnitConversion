@@ -17,7 +17,7 @@ public class VolsConversionTest
 
 		try {
 			converter.convertUnits( null, getConversionType("liters") );
-			Assert.fail();
+			Assert.fail( "Unexpected successful conversion from type 'null'." );
 		}
 		catch (NullPointerException exc) {
 			Assert.assertTrue( true );
@@ -25,7 +25,7 @@ public class VolsConversionTest
 
 		try {
 			converter.convertUnits( "10", null );
-			Assert.fail();
+			Assert.fail( "Unexpected successful conversion to type 'null'." );
 		}
 		catch (NullPointerException exc) {
 			Assert.assertTrue( true );
@@ -40,7 +40,7 @@ public class VolsConversionTest
 
 		try {
 			converter.convertUnits( "10", getConversionType("celsius") );
-			Assert.fail();
+			Assert.fail( "Unexpected successful conversion from cubic feet to celsius." );
 		}
 		catch (UnsupportedOperationException exc) {
 			Assert.assertTrue( true );
@@ -204,11 +204,11 @@ public class VolsConversionTest
 	}
 	
 	@Test
-	public void fromPony()
+	public void typePony()
 	{
 		try {
 			getConverter( getConversionType("PONY") );
-			Assert.fail();
+			Assert.fail( "Got unexpected conversion type 'PONY'." );
 		}
 		catch (IllegalArgumentException exc) {
 			Assert.assertTrue( true );

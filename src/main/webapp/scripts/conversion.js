@@ -22,9 +22,9 @@ function isValidInput( data ) {
     var isValid = true;
     
     var dchar = "";
-    for (var i = 0; i < data.length; i++ ) {
+    for (var i = 0; i < data.length; i++) {
         dchar = data.charAt(i);
-        if (invalidChars.indexOf(dchar) > -1 ) {
+        if (invalidChars.indexOf(dchar) > -1) {
             isValid = false;
             break;
         }
@@ -109,7 +109,7 @@ function getConversion() {
  * Send the form data to the conversion service.
  */
 function submitForm( data ) {
-    var uri = "/UnitConversion/service/validate?";
+    var uri = "/${project.context}/service/validate?";
     if (data['fromType'] !== "") uri += "convertFrom=" + data['fromType'] + "&";
     if (data['toType'] !== "") uri += "convertTo=" + data['toType'] + "&";
     if (data['units'] !== "") uri += "unitValue=" + data['units'] + "&";
@@ -140,19 +140,18 @@ function clearForm() {
  */
 function parseResults( results ) {
     var robj = JSON.parse( results );
-    
     var rmsg = "";
     var vmsg = "";
-    if (robj['outputValue'] === "NONE") {
-        rmsg = "Incorrect: Can not convert " + robj['inputValue'] + " between " + robj['inputType'] +
-                " and " + robj['outputType'] + "!";
-    }
-    else {
-        rmsg = "Result: " + robj['inputValue'] + "/" + robj['inputType'] +
-            " is equal to " + robj['outputValue'] + "/" + robj['outputType'];
+    
+    // Get the conversion answer part of the result
+    rmsg = robj['appResult'];
+    var idx = rmsg.indexOf(",");
+    if (idx > 0) {
+        rmsg = rmsg.substring( 0, idx );
     }
     
-    if (robj['validationValue'] !== "NONE") {
+    // Compose the validation response
+    if (robj['validationValue'] !== "NONE" && rmsg.indexOf("Result") !== -1) {
         vmsg = "Validation: " + robj['validationValue'] + " is " + robj['validation'] + "!";
     }
     

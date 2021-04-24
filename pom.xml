@@ -12,7 +12,11 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- Source file filters -->
         <project.context>UnitConversion</project.context>
+        <default.help>Try --help for usage information.</default.help>
+        <usage.header>Usage:</usage.header>
     </properties>
     
     <dependencies>

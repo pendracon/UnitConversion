@@ -36,43 +36,51 @@ public class CommandLine
 		String units = null;
 		String validate = null;
 		boolean showUsage = false;
+		boolean hasParam = false;
 		
 		String[] arg;
 		for (String parm : args) {
 			if (parm.startsWith("--")) {
 				arg = parm.split( "\\=" );
-				if (arg[0].equalsIgnoreCase("--help")) {
+				if (arg[0].substring(2).equalsIgnoreCase(Constants.HELP_ARG)) {
 					showUsage = true;
 					break;
 				}
-				if (arg[0].equalsIgnoreCase(Constants.FROM_TYPE_ARG)) {
+				if (arg[0].substring(2).equalsIgnoreCase(Constants.FROM_TYPE_ARG)) {
 					fromType = (arg.length == 2 ? arg[1] : null);
+					hasParam = true;
 				}
-				if (arg[0].equalsIgnoreCase(Constants.TO_TYPE_ARG)) {
+				if (arg[0].substring(2).equalsIgnoreCase(Constants.TO_TYPE_ARG)) {
 					toType = (arg.length == 2 ? arg[1] : null);
+					hasParam = true;
 				}
-				if (arg[0].equalsIgnoreCase(Constants.UNIT_VALUE_ARG)) {
+				if (arg[0].substring(2).equalsIgnoreCase(Constants.UNIT_VALUE_ARG)) {
 					units = (arg.length == 2 ? arg[1] : null);
+					hasParam = true;
 				}
-				if (arg[0].equalsIgnoreCase(Constants.VALIDATE_VALUE_ARG)) {
+				if (arg[0].substring(2).equalsIgnoreCase(Constants.VALIDATE_VALUE_ARG)) {
 					validate = (arg.length == 2 ? arg[1] : null);
+					hasParam = true;
 				}
 			}
 		}
-
+		
 		if (showUsage) {
 			usage();
-			System.exit( 0 );
 		}
-
-		try {
-			CommandLine main = new CommandLine( fromType, toType, units, validate );
-			main.execute();
-			main.cleanup();  // good citizen :)
+		else if (!hasParam) {
+			System.out.println( String.format("%s\n  %s", Constants.VERSION, Constants.NO_ARG) );
 		}
-		catch (Exception exc) {
-			if (log.isErrorEnabled()) {
-				log.error( "Conversion execution error.", exc );
+		else {
+			try {
+				CommandLine main = new CommandLine( fromType, toType, units, validate );
+				main.execute();
+				main.cleanup();  // good citizen :)
+			}
+			catch (Exception exc) {
+				if (log.isErrorEnabled()) {
+					log.error( "Conversion execution error.", exc );
+				}
 			}
 		}
 	}
@@ -303,7 +311,7 @@ public class CommandLine
 	 */
 	protected String printResult( ResultType result, Object[] parms, boolean printMessage )
 	{
-		StringBuilder message = new StringBuilder( String.format("%s:\n", Constants.VERSION) ).
+		StringBuilder message = new StringBuilder( String.format("%s\n", Constants.VERSION) ).
 				append( "  " ).
 				append( String.format(ConversionUtil.getMessageText(result.toString()), parms) );
 		

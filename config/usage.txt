@@ -1,4 +1,5 @@
-${project.name} usage:
+${project.name} ${project.version}
+${usage.header}
 
 --convertFrom=<temperature|volume type>
     Give the units type to convert.

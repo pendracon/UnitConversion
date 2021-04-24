@@ -38,7 +38,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.CONVERTED );
+		verifyResult( getOutput(), ResultType.CONVERTED );
 	}
 	
 	// --convertFrom=celsius --convertTo=fahrenheit --units=100 --validate=212
@@ -54,7 +54,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.VALIDATED );
+		verifyResult( getOutput(), ResultType.VALIDATED );
 	}
 	
 	// --convertFrom=celsius --convertTo=cups --units=100 --validate=200
@@ -70,7 +70,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.INCORRECT );
+		verifyResult( getOutput(), ResultType.INCORRECT );
 	}
 
 	// --convertFrom=celsius --convertTo=cups --units=100 --validate=dog
@@ -86,7 +86,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.BAD_VALUE );
+		verifyResult( getOutput(), ResultType.BAD_VALUE );
 	}
 
 	// --convertFrom=cups --convertTo=pints --units=100
@@ -101,7 +101,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.BAD_TYPE );
+		verifyResult( getOutput(), ResultType.BAD_TYPE );
 	}
 
 	// --convertFrom=cups --convertTo=liters --units=lots
@@ -116,7 +116,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.BAD_UNITS );
+		verifyResult( getOutput(), ResultType.BAD_UNITS );
 	}
 	
 	// --convertFrom=celsius --convertTo=cups --units=100
@@ -131,7 +131,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.MISMATCH );
+		verifyResult( getOutput(), ResultType.MISMATCH );
 	}
 
 	// --convertTo=cups --units=100
@@ -145,7 +145,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.NO_FROM );
+		verifyResult( getOutput(), ResultType.NO_FROM );
 	}
 
 	// --convertFrom=celsius --units=100
@@ -159,7 +159,7 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.NO_TO );
+		verifyResult( getOutput(), ResultType.NO_TO );
 	}
 
 	// --convertFrom=celsius --convertTo=fahrenheit
@@ -173,18 +173,49 @@ public class CLIConversionTest
 		};
 		
 		CommandLine.main( args );
-		verify( getOutput(), ResultType.NO_UNITS );
+		verifyResult( getOutput(), ResultType.NO_UNITS );
+	}
+
+	// --help
+	@Test
+	public void inputHelp()
+	{
+		String[] args = {
+			"--help"
+		};
+		
+		CommandLine.main( args );
+		String helpText = getOutput();
+		String[] lines = helpText.split( LINE_SEP );
+		if (lines.length >= 2) {
+			helpText = String.format( "%s%s%s", new Object[] {lines[0], LINE_SEP, lines[1]} );
+		}
+		verifyResult( helpText, Constants.USAGE_HEADER );
+	}
+
+	// 'nada'
+	@Test
+	public void noInput()
+	{
+		String[] args = {};
+		
+		CommandLine.main( args );
+		verifyResult( getOutput(), Constants.NO_ARG );
 	}
 
 	
-	void verify( String result, ResultType expectedType )
+	void verifyResult( String result, ResultType expectedType )
 	{
 		String expected = ConversionUtil.getMessageText( expectedType.toString() + "Test" );
-		
-		String[] lines = result.split( System.getProperty("line.separator") );
+		verifyResult( result, expected );
+	}
+	
+	void verifyResult( String result, String message )
+	{
+		String[] lines = result.split( LINE_SEP );
 		if (lines.length == 2) {
-			Assert.assertEquals( lines[0].trim(), String.format("%s:", Constants.VERSION) );
-			Assert.assertEquals( lines[1].trim(), expected.trim() );
+			Assert.assertEquals( lines[0].trim(), String.format("%s", Constants.VERSION).trim() );
+			Assert.assertEquals( lines[1].trim(), message.trim() );
 		}
 		else {
 			Assert.fail( String.format("Unexpected number of lines in result: %d.", lines.length) );
@@ -201,4 +232,6 @@ public class CLIConversionTest
 
 	
 	private ByteArrayOutputStream cout;
+	
+	private final static String LINE_SEP = System.getProperty( "line.separator" );
 }

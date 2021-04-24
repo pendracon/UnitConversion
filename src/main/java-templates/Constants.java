@@ -26,15 +26,18 @@ public interface Constants {
 	
 	// CLI
 	public final static String USAGE_FILE = "usage.txt";
-	public final static String FROM_TYPE_ARG = "--convertFrom";
-	public final static String TO_TYPE_ARG = "--convertTo";
-	public final static String UNIT_VALUE_ARG = "--units";
-	public final static String VALIDATE_VALUE_ARG = "--validate";
+	public final static String USAGE_HEADER = "${usage.header}";
+	public final static String NO_ARG = "${default.help}";
+	public final static String FROM_TYPE_ARG = "convertFrom";
+	public final static String TO_TYPE_ARG = "convertTo";
+	public final static String UNIT_VALUE_ARG = "units";
+	public final static String VALIDATE_VALUE_ARG = "validate";
+	public final static String HELP_ARG = "help";
 
 	// Web
 	// - query parameters
-	public final static String FROM_TYPE_PARAM = "convertFrom";
-	public final static String TO_TYPE_PARAM = "convertTo";
+	public final static String FROM_TYPE_PARAM = FROM_TYPE_ARG;
+	public final static String TO_TYPE_PARAM = TO_TYPE_ARG;
 	public final static String UNIT_VALUE_PARAM = "unitValue";
 	public final static String VALIDATE_VALUE_PARAM = "validateValue";
 	// - response template tags

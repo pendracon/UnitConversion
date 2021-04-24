@@ -17,9 +17,10 @@
     
     <dependencies>
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-api</artifactId>
-            <version>1.1</version>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.annotation</groupId>
@@ -32,38 +33,15 @@
             <version>2.4.0-b180725.0427</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>2.4.0-b180725.0644</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.metro</groupId>
-            <artifactId>webservices-rt</artifactId>
-            <version>2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>7.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-ri</artifactId>
             <version>2.3.0</version>
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13</version>
-            <scope>test</scope>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.4.0-b180725.0644</version>
         </dependency>
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -74,6 +52,23 @@
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-servlet</artifactId>
             <version>1.19</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -108,7 +103,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>uber-jar</id>
+                        <id>cli-jar</id>
                         <phase>install</phase>
                         <goals>
                             <goal>single</goal>
@@ -120,9 +115,9 @@
                                     <mainClass>com.veetech.unitconversion.CommandLine</mainClass>
                                 </manifest>
                             </archive>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies</descriptorRef>
-                            </descriptorRefs>
+                            <descriptors>
+                                <descriptor>src/assembly/jar-with-deps.xml</descriptor>
+                            </descriptors>
                         </configuration>
                     </execution>
                     <execution>
@@ -155,7 +150,6 @@
                                 <include>**/*.js</include>
                                 <include>**/*.xml</include>
                                 <include>**/*.html</include>
-                                <include>**/*.xhtml</include>
                             </includes>
                         </resource>
                     </webResources>
@@ -200,11 +194,36 @@
                 </dependencies>
                 <configuration>
                     <includes>
-                        <include>**/*.java</include>
+                        <include>**/test/*.java</include>
                     </includes>
                 </configuration>
             </plugin>
-            <!-- Plugin builds a local docker image of the web app -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-dockerfile</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>          
+                                <resource>
+                                    <directory>${project.basedir}/dist</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>Dockerfile</include>
+                                    </includes>
+                                </resource>
+                            </resources>              
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Build local docker image of the web app -->
             <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -287,13 +306,6 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>*.*</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>dist</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>Dockerfile</include>
                 </includes>
             </resource>
         </resources>

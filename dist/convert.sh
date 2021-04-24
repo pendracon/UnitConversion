@@ -7,7 +7,7 @@ export APPHOME=${APPHOME:-~/$DIRNAME}
 
 LIBDIR=${LIBDIR:-${APPHOME}/lib}
 CONFIG=${CONFIG:-${APPHOME}/config}
-RUNTIME=${LIBDIR}/${NAME}-${VERS}-jar-with-dependencies.jar
+RUNTIME=${LIBDIR}/${NAME}-${VERS}-jar-with-deps.jar
 JAVA=${JAVA:-java}
 
 LOGGER=-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.Jdk14Logger

@@ -7,7 +7,7 @@ REM ========================================
 set HOMEDIR=C:\${CONTEXT}CLI
 set LIBSDIR=%HOMEDIR%\lib
 set CONFDIR=%HOMEDIR%\config
-set RUNTIME=%LIBSDIR%\${NAME}-${VERS}-jar-with-dependencies.jar
+set RUNTIME=%LIBSDIR%\${NAME}-${VERS}-jar-with-deps.jar
 
 set LOGGER=-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.Jdk14Logger
 set LOGCFG=-Djava.util.logging.config.file=%CONFIG%\logging.properties

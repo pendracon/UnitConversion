@@ -38,7 +38,7 @@ Contributors:
         <fileSet>
             <directory>${project.build.directory}</directory>
             <includes>
-                <include>*-jar-with-dependencies.jar</include>
+                <include>${project.artifactId}-${project.version}-jar-with-deps.jar</include>
             </includes>
             <outputDirectory>/lib</outputDirectory>
         </fileSet>

@@ -9,8 +9,6 @@ name: Java CI/CD with Maven and Docker
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build-and-test:

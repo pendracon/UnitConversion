@@ -46,7 +46,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
           name: deployable artifacts
-          path: target/*
+#          path: target/*
       - name: Build container image
         uses: docker/build-push-action@v1
         with:

@@ -2,8 +2,8 @@
 
 _`America is inching towards the metric system.`_
 
-_Unit Conversion_ is a temperature and dry volume unit conversion solution for
-the Flexion Coding challenge.
+_Unit Conversion_ is a temperature and dry volume unit conversion tool and RESTful
+web app.
 
 Converting units between the following types is supported:
 
